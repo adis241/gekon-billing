@@ -84,7 +84,17 @@ const sb = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseAnonKey, { 
 const isRecovery = /type=recovery/.test(location.hash) || new URL(location.href).searchParams.get("reset")==="1";
 
 /* ---------- the platform state ---------- */
-const P = { sb, uid:null, email:"", name:"", cid:null, role:null, companyName:"", companies:[], members:[], ready:false };
+const P = { sb, uid:null, email:"", name:"", cid:null, role:null, companyName:"", companies:[], members:[], ready:false, perm:null };
+// what a person may do: mirrors public.access_of() in the database, which is what actually enforces it
+const AREAS=["reqs","invoices","cos","subPay","setup","lists","cashflow"];
+function accessOf(role, access){
+  if(!role) return null;
+  if(role==="admin" || access==null){ const e={}; for(const a of AREAS) e[a]= role!=="viewer"; return { role, all:true, projects:[], create: role!=="viewer", edit:e, custom:false }; }
+  const e={}; for(const a of AREAS) e[a]= role==="editor" && !!(access.edit && access.edit[a]);
+  const list=Array.isArray(access.projects)? access.projects.map(String) : null;
+  return { role, all: !list, projects: list||[], create: role==="editor" && !!access.create, edit:e, custom:true };
+}
+P.accessOf = accessOf; P.AREAS = AREAS;
 let readyResolve; const readyP = new Promise(r=>readyResolve=r);
 window.__appPlatform = P;
 
@@ -234,7 +244,7 @@ function safe(fn,arg){ try{ fn(arg); }catch(e){ console.error(e); } }
 function docSnap(c,i){ const d=virtGet(c,i); const v= d!==undefined? d : (cache.get(c)||new Map()).get(i); return { id:i, exists:v!==undefined, data:()=>v, metadata:{} }; }
 function colSnap(c){ const v=virtCol(c); const m=v || cache.get(c) || new Map(); const docs=[...m.entries()].map(([i,d])=>({ id:i, exists:true, data:()=>d, metadata:{} })); return { docs, size:docs.length, empty:!docs.length, forEach(f){ docs.forEach(f); } }; }
 // people and access requests come from the membership table, not documents
-function memberDoc(m){ return freeze({ role:m.role, email:m.email||"", name:m.name||"", at:m.joined_at||"" }); }
+function memberDoc(m){ return freeze({ role:m.role, email:m.email||"", name:m.name||"", at:m.joined_at||"", access: m.access==null? null : clone(m.access) }); }
 function virtCol(c){ if(c==="members"){ const m=new Map(); for(const x of P.members) m.set(x.user_id, memberDoc(x)); return m; } if(c==="access") return new Map(); return null; }
 function virtGet(c,i){ if(c==="members"){ const x=P.members.find(y=>y.user_id===i); return x? memberDoc(x) : undefined; } if(c==="access") return undefined; return undefined; }
 
@@ -254,12 +264,18 @@ async function loadAll(){
     cache.set(c,b); }
 }
 async function loadMembers(){
-  const { data, error } = await sb.from("company_members").select("user_id, role, email, name, joined_at").eq("company_id",P.cid);
+  let { data, error } = await sb.from("company_members").select("user_id, role, email, name, joined_at, access").eq("company_id",P.cid);
+  // database not updated yet (3_project_access.sql not run): work as before, everyone with full access for their role
+  if(error && /access/.test(String(error.message||""))) ({ data, error } = await sb.from("company_members").select("user_id, role, email, name, joined_at").eq("company_id",P.cid));
   if(error) throw error; P.members=data||[];
   const me=P.members.find(m=>m.user_id===P.uid);
   if(!me){ alertAndReload("You no longer have access to "+P.companyName+"."); return; }
   if(P.ready && me.role!==P.role){ alertAndReload("Your access changed to "+roleName(me.role)+". The page will reload."); return; }
-  P.role=me.role; pendingC.add("members"); for(const m of P.members) pendingD.add(key("members",m.user_id)); if(!flushT) flushT=setTimeout(flush,0);
+  P.role=me.role;
+  const perm=accessOf(me.role, me.access), was=P.perm;
+  P.perm=freeze(perm);
+  // projects or edit rights changed while the page is open: fetch what they can see now and redraw
+  if(P.ready && was && JSON.stringify(was)!==JSON.stringify(perm)){ loadAll().catch(()=>{}).finally(()=>{ try{ window.dispatchEvent(new Event("cb-access-changed")); }catch(e){} }); } pendingC.add("members"); for(const m of P.members) pendingD.add(key("members",m.user_id)); if(!flushT) flushT=setTimeout(flush,0);
 }
 function alertAndReload(msg){ try{ window.alert(msg); }catch(e){} LS.del("cb.company"); location.replace(PAGE_URL); }
 let chan=null, subscribedOnce=false, hiddenAt=0;
@@ -287,8 +303,11 @@ function serial(k, fn){ const prev=chains.get(k)||Promise.resolve(); const run=p
 function dbErr(error){ const e=new Error(error&&error.message||"write_failed"); e.code= /row-level security|permission/i.test(e.message)? "permission_denied" : /not_found/.test(e.message)? "invalid_argument" : "unavailable"; return e; }
 function newId(){ const a="0123456789abcdefghijklmnopqrstuvwxyz"; const b=new Uint8Array(20); crypto.getRandomValues(b); return [...b].map(x=>a[x%36]).join(""); }
 function memberWrite(op, id, data){
-  if(op==="update" && data && data.role){ if(!["admin","editor","viewer"].includes(data.role)) return Promise.reject(dbErr({message:"invalid role"}));
-    return sb.from("company_members").update({ role:data.role }).match({ company_id:P.cid, user_id:id }).select().then(({data:r,error})=>{ if(error) throw dbErr(error); if(!r||!r.length) throw dbErr({message:"permission"}); return loadMembers(); }); }
+  if(op==="update" && data && (data.role || "access" in data)){
+    const row={};
+    if(data.role){ if(!["admin","editor","viewer"].includes(data.role)) return Promise.reject(dbErr({message:"invalid role"})); row.role=data.role; }
+    if("access" in data) row.access= data.access==null? null : clone(data.access);
+    return sb.from("company_members").update(row).match({ company_id:P.cid, user_id:id }).select().then(({data:r,error})=>{ if(error) throw dbErr(error); if(!r||!r.length) throw dbErr({message:"permission"}); return loadMembers(); }); }
   if(op==="delete") return sb.from("company_members").delete().match({ company_id:P.cid, user_id:id }).select().then(({data:r,error})=>{ if(error) throw dbErr(error); return loadMembers(); });
   return Promise.resolve();   // adding people happens through invite links
 }
@@ -343,7 +362,7 @@ function legacyMap(){ const l=(cache.get("settings")||new Map()).get("legacy"); 
 function personOf(id){ let m=P.members.find(x=>x.user_id===id); if(!m){ const em=legacyMap()[id]; if(em) m=P.members.find(x=>String(x.email||"").toLowerCase()===String(em).toLowerCase()); }
   return m? { id, name:m.name||m.email||"", email:m.email||"", avatarUrl:avatar(m.name||m.email), guest:false } : { id, name:"", email:"", avatarUrl:avatar("?"), guest:false }; }
 const userApi = Object.freeze({
-  async me(){ return { id:P.uid, name:P.name||P.email, email:P.email, avatarUrl:avatar(P.name||P.email), isOwner:P.role==="admin", canEdit:P.role==="admin"||P.role==="editor", guest:false }; },
+  async me(){ return { id:P.uid, name:P.name||P.email, email:P.email, avatarUrl:avatar(P.name||P.email), isOwner:P.role==="admin", canEdit:P.role==="admin"||P.role==="editor", guest:false, access:P.perm }; },
   async id(){ return P.uid; },
   isOwner(){ return P.role==="admin"; }, canEdit(){ return P.role!=="viewer"; }, can(){ return P.role!=="viewer"; },
   async profiles(ids){ const o={}; for(const id of ids||[]) o[id]=personOf(id); return o; },
@@ -358,8 +377,10 @@ P.legacy = ()=> (cache.get("settings")||new Map()).get("legacy") || null;
 
 /* ---------- invites (admin) ---------- */
 P.invites = {
-  async list(){ const { data, error } = await sb.from("invites").select("token, role, email, note, created_at, expires_at, used_by, used_at, revoked").eq("company_id",P.cid).order("created_at",{ascending:false}).limit(200); if(error) throw error; return data||[]; },
-  async create({ role, email, note }){ const { data, error } = await sb.from("invites").insert({ company_id:P.cid, role: role==="viewer"? "viewer" : "editor", email: email? String(email).trim().toLowerCase() : null, note: note? String(note).slice(0,200) : null, created_by:P.uid }).select("token").single(); if(error) throw error; return data.token; },
+  async list(){ const { data, error } = await sb.from("invites").select("token, role, email, note, created_at, expires_at, used_by, used_at, revoked, access").eq("company_id",P.cid).order("created_at",{ascending:false}).limit(200); if(error) throw error; return data||[]; },
+  async create({ role, email, note, access }){ const row={ company_id:P.cid, role: role==="viewer"? "viewer" : "editor", email: email? String(email).trim().toLowerCase() : null, note: note? String(note).slice(0,200) : null, created_by:P.uid };
+    if(access!=null) row.access=clone(access);
+    const { data, error } = await sb.from("invites").insert(row).select("token").single(); if(error) throw error; return data.token; },
   async revoke(token){ const { error } = await sb.from("invites").update({ revoked:true }).eq("token",token).eq("company_id",P.cid); if(error) throw error; },
   link(token){ return PAGE_URL+"?invite="+token; }
 };

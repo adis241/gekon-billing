@@ -99,7 +99,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .nav .count{font:700 12px var(--body);background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:1px 8px;flex:none}
 .sfoot{margin-top:auto;display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:12px}
 .content{min-width:0;padding-left:32px;padding-right:max(32px,env(safe-area-inset-right,0px))}
-.content .inner{max-width:1180px;margin:0 auto}
+.content .inner,.content .inner.wide{max-width:var(--page-w,1560px);margin:0 auto}
 button.btn.mtoggle{display:none}
 td .actions{flex-wrap:nowrap}
 .person{display:inline-flex;align-items:center;gap:10px;min-width:0}
@@ -667,7 +667,7 @@ button.file:hover{border-color:var(--accent);color:var(--accent)}
 
 /* requisition builder */
 .rqgrid{display:block}
-.content .inner.wide{max-width:1560px}
+
 .g7wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;align-items:start}
 .g7wrap .g7co{margin-top:0}
 @media (max-width:900px){.g7wrap{grid-template-columns:minmax(0,1fr)}.g7wrap .g7co{margin-top:6px}}
@@ -981,6 +981,138 @@ tr.totrow td{font-weight:700;background:var(--sunk)}
 .rqtable tr.dragging{opacity:.45}
 .rqtable tr.drop-before td{box-shadow:inset 0 3px 0 var(--accent)}
 .rqtable tr.drop-after td{box-shadow:inset 0 -3px 0 var(--accent)}
+
+/* ---------- project access ---------- */
+.accgrid{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);border-top:1px solid var(--line)}
+.acclistp{display:flex;flex-direction:column;border-right:1px solid var(--line);padding:8px;gap:2px;max-height:760px;overflow:auto}
+.accperson{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border:1px solid transparent;background:none;border-radius:10px;padding:10px 12px;cursor:pointer;font:inherit;color:var(--ink)}
+.accperson:hover{background:var(--accent-soft)}
+.accperson.on{background:var(--accent-soft);border-color:var(--accent)}
+.accperson:disabled{cursor:default;opacity:.75}
+.accperson:disabled:hover{background:none}
+.accperson small{color:var(--muted);font-size:12.5px}
+.accpname{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.accpname .pill{min-width:0;font-size:11px;padding:2px 8px}
+.accpsum{font-size:12.5px;color:var(--muted);line-height:1.35}
+.accmain{display:flex;flex-direction:column;gap:18px;padding:18px;min-width:0}
+.acchead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.acchead small{display:block;color:var(--muted)}
+.accwho{font-size:18px}
+.accheadr{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.accheadr select{width:auto;min-width:0;max-width:260px}
+.acclab{font-weight:600;font-size:13.5px;color:var(--muted)}
+.acced{display:flex;flex-direction:column;gap:22px}
+.accsec{display:flex;flex-direction:column;gap:10px}
+.accsec h3{margin:0;font:700 15px var(--display)}
+.accnote{margin:0;color:var(--muted);font-size:13.5px}
+.accopts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.accopt{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;cursor:pointer}
+.accopt input{margin:3px 0 0;width:17px;height:17px;accent-color:var(--accent);flex:none}
+.accopt b{display:block;font-size:14px}
+.accopt small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.accopt:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.accopt:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.acctools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.acctools input[type=search]{flex:1 1 220px;min-width:0}
+.accbulk{display:flex;gap:6px}
+.acccount{font-size:13px;color:var(--muted);margin-left:auto}
+.acclist{border:1px solid var(--line);border-radius:10px;max-height:340px;overflow:auto}
+.accgrp+.accgrp{border-top:1px solid var(--line)}
+.accgh{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--bg);position:sticky;top:0;z-index:1;cursor:pointer}
+.accgh small{color:var(--muted);font-size:12px;margin-left:auto}
+.accdot{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
+.accprow{display:flex;align-items:center;gap:10px;padding:8px 12px 8px 34px;cursor:pointer}
+.accprow:hover{background:var(--accent-soft)}
+.accprow.done .accpn>span{color:var(--muted)}
+.accpn{display:flex;flex-direction:column;min-width:0}
+.accpn small{color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acclist input[type=checkbox],.accpp input{width:16px;height:16px;accent-color:var(--accent);flex:none}
+.accpresets{display:flex;gap:6px;flex-wrap:wrap}
+.accpre{font:600 13px var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
+.accpre[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.accsws{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.accsws.one{grid-template-columns:minmax(0,1fr)}
+.accsw{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border:1px solid var(--line);border-radius:10px;cursor:pointer;position:relative}
+.accsw input{position:absolute;opacity:0;width:36px;height:22px;margin:0;cursor:pointer;z-index:1}
+.accsw .swtrack{pointer-events:none}
+.accsw,.accprow,.accopt,.accgh{scroll-margin-bottom:80px;scroll-margin-top:60px}
+.accsw .swtrack{flex:none;width:36px;height:22px;border-radius:999px;background:var(--line);position:relative;transition:background .15s;margin-top:1px}
+.accsw .swtrack::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+.accsw input:checked+.swtrack{background:var(--accent)}
+.accsw input:checked+.swtrack::after{transform:translateX(14px)}
+.accsw input:focus-visible+.swtrack{outline:2px solid var(--accent);outline-offset:2px}
+.accsw b{display:block;font-size:14px}
+.accsw small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px;line-height:1.35}
+.accsw:has(input:checked){border-color:var(--accent)}
+.accbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 0 2px}
+.accstatus{font-size:13.5px;color:var(--muted)}
+.accdet{border:1px solid var(--line);border-radius:10px;padding:0 14px}
+.accdet>summary{cursor:pointer;padding:12px 0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;list-style:revert}
+.accdet[open]>summary{border-bottom:1px solid var(--line);margin-bottom:14px}
+.accdet .acced{padding-bottom:14px}
+.accsumline{color:var(--muted);font-size:13.5px}
+.accsumcell{display:block;font-size:13px;color:var(--muted);max-width:340px}
+.accprojpick{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.accprojpick select{width:auto;max-width:100%}
+.accpp{display:flex;align-items:center;gap:10px;cursor:pointer}
+.accpp small{display:block;color:var(--muted);font-size:12px}
+@media (max-width:820px){ .accgrid{grid-template-columns:minmax(0,1fr)} .acclistp{border-right:0;border-bottom:1px solid var(--line);max-height:260px} .accopts,.accsws{grid-template-columns:minmax(0,1fr)} }
+
+/* ---------- owner approval of change orders ---------- */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.coap .coapsum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:6px}
+.coap .coapsum div{background:var(--bg);border-radius:10px;padding:10px 12px}
+.coap .coapsum span{display:block;font-size:12px;color:var(--muted)}
+.coap .coapsum b{font-size:16px}
+.coap-alert{border-color:#D97706;box-shadow:0 0 0 2px rgba(217,119,6,.18)}
+.coaptbl{width:100%;table-layout:fixed}
+.coaptbl th:nth-child(1),.coaptbl td:nth-child(1){width:28px}
+.coaptbl th:nth-child(3),.coaptbl td:nth-child(3){width:96px}
+.coaptbl th:nth-child(4),.coaptbl td:nth-child(4){width:92px}
+.coaptbl td{vertical-align:top;overflow-wrap:anywhere;white-space:normal}
+.coaptbl td:nth-child(2) span:first-child{display:block}
+.coaptbl td:nth-child(3){white-space:nowrap;overflow-wrap:normal}
+.pill.coyes{background:#E3F4EA;color:#16794A}
+.pill.cono{background:#FBE9EB;color:#B4232F}
+.coaptbl tr.coap-no td{background:#FDF0F1}
+.coapnote{display:block;color:#8A2A33}
+.coapacts{margin-top:12px}
+.irow.declined{background:#FDF0F1;border-radius:10px;outline:1.5px solid #E7A3AA}
+.ownernote{grid-column:1/-1;font-size:12.5px;font-weight:600;color:#8A2A33}
+.coalert{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#FFF4D6;border:1px solid #F0C36D;border-radius:10px;padding:10px 14px;margin:12px 16px 0}
+.coalert>span:nth-child(2){flex:1 1 240px}
+main>.coalert{margin:0 0 12px}
+.coalert-dot,.navalert{width:9px;height:9px;border-radius:50%;background:#D9480F;flex:none;display:inline-block}
+.navalert{margin-left:6px;box-shadow:0 0 0 2px rgba(255,255,255,.7)}
+.costcell{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.cochip{font-size:11px;white-space:nowrap}
+.coalertchip{background:#FFE8CC;color:#9A3412}
+@media (max-width:640px){ .coap .coapsum{grid-template-columns:1fr} }
+
+html{scrollbar-gutter:stable}
+@keyframes pgin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+main>.pgin{animation:pgin .24s cubic-bezier(.2,.7,.2,1) both}
+main>.pgin.pg2{animation-delay:.03s}main>.pgin.pg3{animation-delay:.06s}main>.pgin.pg4{animation-delay:.09s}
+.ptab{transition:color .18s ease,border-color .18s ease}
+.nav{transition:background-color .18s ease}
+@media (prefers-reduced-motion:reduce){main>.pgin{animation:none}.ptab,.nav{transition:none}}
+
+.nosideanim .shell,.nosideanim .side,.nosideanim .navback{transition:none!important}
+.shell{transition:grid-template-columns .26s cubic-bezier(.2,.7,.2,1)}
+.sidehide{width:34px;height:34px;padding:0;border-radius:9px;border:1px solid var(--side-line);background:transparent;color:var(--side-ink);display:grid;place-items:center;cursor:pointer;flex:none}
+.sidehide:hover{background:var(--side-hover)}
+.sideshow{position:fixed;z-index:41;top:calc(env(safe-area-inset-top,0px) + 14px);left:max(12px,env(safe-area-inset-left,0px));display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 13px 0 10px;border-radius:10px;border:0;background:var(--side-bg);color:var(--side-ink);font:600 14px var(--body);cursor:pointer;box-shadow:0 4px 14px rgba(13,27,46,.22)}
+.sideshow:hover{filter:brightness(1.15)}
+.sideshow[hidden]{display:none}
+body.sidehidden .shell{grid-template-columns:0 minmax(0,1fr)}
+body.sidehidden .side{visibility:hidden;padding-left:0;padding-right:0;overflow:hidden;transition:visibility 0s linear .26s,padding .26s}
+body.sidehidden .content{padding-left:max(124px,env(safe-area-inset-left,0px))}
+body.sidehidden .navback{left:16px}
+.navback{transition:left .26s cubic-bezier(.2,.7,.2,1)}
+@media (min-width:861px) and (max-width:1100px){ body.sidehidden .content{padding-left:max(112px,env(safe-area-inset-left,0px))} }
+@media (max-width:860px){ .sidehide,.sideshow{display:none!important} body.sidehidden .shell{grid-template-columns:minmax(0,1fr)} body.sidehidden .side{visibility:visible;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow:visible} body.sidehidden .content{padding-left:max(16px,env(safe-area-inset-left,0px))} body.sidehidden .navback{left:8px} }
+@media (prefers-reduced-motion:reduce){ .shell,.navback{transition:none} }
+@media print{ .sidehide,.sideshow{display:none!important} }
 </style>
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
@@ -993,6 +1125,7 @@ tr.totrow td{font-weight:700;background:var(--sunk)}
     <div class="brand"><span class="mark" aria-hidden="true" id="brandMark">CB</span><span class="bt"><b>Client Billing</b><span id="brandSub"></span></span></div>
     <div class="tools">
       <button class="plusbtn" id="plusBtn" type="button" aria-label="Create billing" title="Create billing: AIA requisition or invoice" hidden><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" style="display:block"><path d="M9 2.5v13M2.5 9h13" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>
+      <button class="sidehide" type="button" id="sideHide" aria-controls="side" aria-expanded="true" aria-label="Hide menu" title="Hide menu (Ctrl+\)"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16M16 10l-2 2 2 2"/></svg></button>
       <button class="btn mtoggle" type="button" id="menuBtn" aria-expanded="false" aria-controls="sideBody">Menu</button>
     </div>
   </div>
@@ -1008,6 +1141,7 @@ tr.totrow td{font-weight:700;background:var(--sunk)}
     <div class="sfoot" id="sfoot"></div>
   </div>
 </aside>
+<button type="button" class="sideshow" id="sideShow" aria-controls="side" aria-expanded="false" aria-label="Show menu" title="Show menu (Ctrl+\)" hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16M14 10l2 2-2 2"/></svg><span>Menu</span></button>
 <button type="button" id="navBack" class="navback" hidden aria-label="Go back" title="Go back"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <div class="content"><div class="inner">
 <main id="main" aria-live="polite">
@@ -1098,10 +1232,10 @@ tr.totrow td{font-weight:700;background:var(--sunk)}
   <div class="dh"><div><h2 id="riTitle">Import requisition</h2><span class="meta">Bring in requisitions you already sent, from a PDF or Excel file.</span></div><button class="x" type="button" data-close aria-label="Close">×</button></div>
   <div class="db">
     <div class="rimodes" role="radiogroup" aria-label="What to import">
-      <label class="kind"><input type="radio" name="riMode" id="riModeLines" value="lines" checked><b>With line items</b><span>Excel files. Brings in every line, change order and what was billed before. Opens in the requisition builder, and the next requisition starts from it. Pick several files at once.</span></label>
+      <label class="kind"><input type="radio" name="riMode" id="riModeLines" value="lines" checked><b>With line items</b><span>PDF or Excel files. Brings in every line, change order and what was billed before. Opens in the requisition builder, and the next requisition starts from it. Pick several files at once.</span></label>
       <label class="kind"><input type="radio" name="riMode" id="riModeTotals" value="totals"><b>Totals only</b><span>PDF or Excel. Reads the summary numbers (application #, dates, billed to date, payment due) into a short form you check before saving. A PDF is attached to the requisition.</span></label>
     </div>
-    <label class="drop ridrop" id="riDrop" for="riInput"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><span id="riDropText">Drop Excel files here or <u>choose files</u></span><small id="riDropSub">You can drop all past requisitions at once</small><input type="file" id="riInput" multiple accept=".xlsx,.xlsm,.xls,.csv,.pdf,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" hidden></label>
+    <label class="drop ridrop" id="riDrop" for="riInput"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><span id="riDropText">Drop PDF or Excel files here or <u>choose files</u></span><small id="riDropSub">You can drop all past requisitions at once</small><input type="file" id="riInput" multiple accept=".xlsx,.xlsm,.xls,.csv,.pdf,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" hidden></label>
     <div id="riList" class="rilist"></div>
     <div id="riSummary"></div>
     <p class="hint" id="riHint" style="margin:0">Each file becomes a requisition with its line items in this project’s billing history. The newest one sets up the schedule of values. Pick the status for each: usually <b>Paid</b> for ones you were paid for.</p>
@@ -1120,7 +1254,7 @@ tr.totrow td{font-weight:700;background:var(--sunk)}
       <input type="file" id="scanInput" accept="application/pdf,.pdf,.xlsx,.xlsm,.xls,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv" hidden>
     </div>
     <div class="scanres" id="scanRes" hidden></div>
-    <div class="scanup" id="rUpgrade" hidden><div><b>Logged with totals only.</b><span> Import this requisition’s Excel file to get every line item. Then it opens in the requisition builder, with its PDF, and the next requisition starts from it.</span></div><button class="btn primary" type="button" id="rUpgradeBtn">Import Excel with line items</button></div>
+    <div class="scanup" id="rUpgrade" hidden><div><b>Logged with totals only.</b><span> Import this requisition’s PDF or Excel file to get every line item. Then it opens in the requisition builder, with its PDF, and the next requisition starts from it.</span></div><button class="btn primary" type="button" id="rUpgradeBtn">Import with line items</button></div>
     <div class="fields">
       <div class="f"><label for="rApp">Application #</label><input id="rApp" name="appNo" inputmode="numeric" required></div>
       <div class="f"><label for="rType">Type</label><select id="rType" name="type"><option value="progress">Progress billing</option><option value="release">Retainage release</option></select></div>
@@ -1344,20 +1478,21 @@ function renderSide(){
   const ok=S.access==="ok";
   $("sideSeg").hidden=!ok || workAs()!=="both"; $("searchWrap").hidden=!ok;
   document.querySelectorAll("#sideSeg button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.filter===S.filter)));
-  $("newProjectBtn").hidden=!(ok && S.canWrite);
+  $("newProjectBtn").hidden=!(ok && canCreateProject());
   { const hid=ok? S.projects.filter(p=>!roleOk(p)).length : 0; let n=$("roleHidNote");
     if(!n){ n=h("p",{id:"roleHidNote",class:"rolehid"}); $("newProjectBtn").before(n); }
     n.hidden=!hid; if(hid) n.replaceChildren(document.createTextNode(plural(hid,(workAs()==="gc"? "Sub" : "GC")+" project")+" hidden · "), h("button",{class:"linkbtn",type:"button",text:"Settings",onclick:()=>{ setTab("settings"); closeMenu(); }})); }
-  $("plusBtn").hidden=!(ok && S.canWrite);
+  $("plusBtn").hidden=!(ok && (canDo("reqs") || canDo("invoices")));
   const nav=$("tabs"); nav.replaceChildren();
   if(ok){
-    nav.append(navBtn("overview","Summary","Billed & owed, all projects",h("span",{class:"navico","aria-hidden":"true"},(()=>{ const sp=h("span"); sp.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>'; return sp.firstChild; })())));
+    nav.append(navBtn("overview","Summary",seesAll()? "Billed & owed, all projects" : "Billed & owed, your projects",h("span",{class:"navico","aria-hidden":"true"},(()=>{ const sp=h("span"); sp.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>'; return sp.firstChild; })())));
     nav.append(navBtn("cash","Cash flow","13-week forecast",h("span",{class:"navico","aria-hidden":"true"},(()=>{ const sp=h("span"); sp.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 3 8-8"/><path d="M15 7h5v5"/><path d="M3 21h18"/></svg>'; return sp.firstChild; })())));
     { const soon=addDays(today(),7), due=S.subPays.filter(x=>x.status!=="paid" && x.status!=="void" && x.date && x.date<=soon && proj(x.projectId)).length;
-      nav.append(navBtn("subpay","Sub payments","Upcoming, all projects",h("span",{class:"navico","aria-hidden":"true"},(()=>{ const sp=h("span"); sp.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg>'; return sp.firstChild; })()), due)); }
+      nav.append(navBtn("subpay","Sub payments",seesAll()? "Upcoming, all projects" : "Upcoming, your projects",h("span",{class:"navico","aria-hidden":"true"},(()=>{ const sp=h("span"); sp.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg>'; return sp.firstChild; })()), due)); }
     const ps=visibleProjects(), act=ps.filter(p=>p.status!=="complete"), done=ps.filter(p=>p.status==="complete");
     void act; void done;
     for(const sec of sideSections(ps)){
+      if(!seesAll() && !sec.items.length && sec.key!=="pinned") continue;
       const open=!S.collapsed.has(sec.key) || !!(S.q||"").trim();
       const gh=h("button",{class:"ghead",type:"button","aria-expanded":String(open),onclick:()=>{ if(S.collapsed.has(sec.key)) S.collapsed.delete(sec.key); else S.collapsed.add(sec.key); savePrefs(); renderSide(); }},
         h("span",{class:"chev","aria-hidden":"true",text:"▾"}), cdot(sec.color), h("span",{class:"gn",text:sec.label}), h("span",{class:"gc",text:String(sec.items.length)}));
@@ -1375,6 +1510,15 @@ function renderSide(){
   if(PM){ const a=document.querySelector('.navrow[data-pid="'+PM.pid+'"] .navmore'); if(a && proj(PM.pid)){ PM.anchor=a; a.setAttribute("aria-expanded","true"); const m=$("pmenu"); if(!m.contains(document.activeElement) || !/INPUT/.test(document.activeElement.tagName)) buildPMenu(); positionPMenu(); } else closePMenu(); }
 }
 function closeMenu(){ if(window.matchMedia("(max-width:860px)").matches){ $("side").classList.add("closed"); $("menuBtn").setAttribute("aria-expanded","false"); } }
+function setSideHidden(on, focus){
+  document.body.classList.toggle("sidehidden", !!on); store("cb.sideHidden", on? "1" : "");
+  const sh=$("sideShow"), hb=$("sideHide"); if(sh) sh.hidden=!on; if(hb) hb.setAttribute("aria-expanded", String(!on));
+  if(focus){ setTimeout(()=>{ const t= on? sh : hb; if(t) t.focus(); }, on? 0 : 280); }
+}
+$("sideHide").addEventListener("click",()=>setSideHidden(true,true));
+$("sideShow").addEventListener("click",()=>setSideHidden(false,true));
+document.addEventListener("keydown",e=>{ if((e.ctrlKey||e.metaKey) && !e.altKey && (e.key==="\\" || e.code==="Backslash") && !document.querySelector("dialog[open]")){ if(window.matchMedia("(max-width:860px)").matches) return; e.preventDefault(); setSideHidden(!document.body.classList.contains("sidehidden"), true); } });
+if(load("cb.sideHidden")==="1"){ document.documentElement.classList.add("nosideanim"); setSideHidden(true); requestAnimationFrame(()=>requestAnimationFrame(()=>document.documentElement.classList.remove("nosideanim"))); }
 $("menuBtn").addEventListener("click",()=>{ const s=$("side"); const open=s.classList.toggle("closed")===false; $("menuBtn").setAttribute("aria-expanded",String(open)); });
 /* ---------- back arrow: returns to the page you were on before ---------- */
 const NAV_BACK=[];
@@ -1423,8 +1567,23 @@ function render(){
   const main=$("main"); main.replaceChildren();
   draw(main);
   try{ centerCols(main); }catch(e){}
+  try{ pageIn(main); }catch(e){}
   if(keep){ const el=document.getElementById(keep.id); if(el && el!==ae){ el.value=keep.v; el.focus(); try{ el.setSelectionRange(keep.s,keep.e); }catch(x){} } }
   navSync();
+}
+// soft transition: a new page fades in; a new tab fades in only what's under the tabs
+let _pgKey=null, _tabKey=null;
+function pageIn(main){
+  const tl=[...main.children].find(c=>c.getAttribute && c.getAttribute("role")==="tablist");
+  const tabs=[...main.querySelectorAll(":scope > [role=tablist]")].map(t=>[...t.querySelectorAll("[role=tab]")].findIndex(b=>b.getAttribute("aria-selected")==="true")).join(",");
+  const pg=String(S.tab||"")+"|"+String(S.access||"")+"|"+String(S.dbState||""), first=_pgKey===null;
+  const newPage=pg!==_pgKey, newTab=!newPage && tabs!==_tabKey;
+  _pgKey=pg; _tabKey=tabs;
+  if(first || (!newPage && !newTab)) return;
+  let kids=[...main.children];
+  if(newTab && tl){ kids=kids.slice(kids.indexOf(tl)+1); }
+  kids.slice(0,12).forEach((k,i)=>{ k.classList.add("pgin"); if(i>0 && i<4) k.classList.add("pg"+(i+1));
+    k.addEventListener("animationend",()=>k.classList.remove("pgin","pg2","pg3","pg4"),{once:true}); });
 }
 // status-type columns (status, work, lien waivers, files…) are centered in every table
 const CENTER_COLS=/^(status|work|lien waivers?|last lien waiver|next payment|files|billed on|invoice)$/i;
@@ -1447,13 +1606,13 @@ function draw(main){
   const cm=/^new(aia|inv)-(.+)$/.exec(S.tab||""), em=/^inv-(.+)$/.exec(S.tab||""), rm=/^req-(.+)$/.exec(S.tab||"");
   if((cm||em||rm) && (!S.loadedP || !S.loadedR)){ main.append(h("section",{class:"panel"},h("div",{class:"empty"},h("h2",{text:"Loading…"})))); return; }
   if(em){ renderInvoice(main, em[1], null); return; }
-  if(cm && cm[1]==="inv"){ if(S.canWrite) renderInvoice(main, null, cm[2]); else main.append(gatePanel("Only editors can create invoices","Ask the admin for editor access.")); return; }
+  if(cm && cm[1]==="inv"){ if(canDo("invoices")) renderInvoice(main, null, cm[2]); else main.append(gatePanel("Only editors can create invoices","Ask the admin for editor access.")); return; }
   if(rm){ renderReqBuilder(main, rm[1], null); return; }
   const ncm=/^newco-(.+)$/.exec(S.tab||""), ecm=/^co-(.+)$/.exec(S.tab||"");
   if((ncm||ecm) && (!S.loadedP || !S.loadedR || !S.loadedCO)){ main.append(h("section",{class:"panel"},h("div",{class:"empty"},h("h2",{text:"Loading…"})))); return; }
   if(ecm){ renderCoBuilder(main, ecm[1], null); return; }
-  if(ncm){ if(S.canWrite) renderCoBuilder(main, null, ncm[1]); else main.append(gatePanel("Only editors can create change orders","Ask the admin for editor access.")); return; }
-  if(cm){ if(S.canWrite) renderReqBuilder(main, null, cm[2]); else main.append(gatePanel("Only editors can create requisitions","Ask the admin for editor access.")); return; }
+  if(ncm){ if(canDo("cos")) renderCoBuilder(main, null, ncm[1]); else main.append(gatePanel("Only editors can create change orders","Ask the admin for editor access.")); return; }
+  if(cm){ if(canDo("reqs")) renderReqBuilder(main, null, cm[2]); else main.append(gatePanel("Only editors can create requisitions","Ask the admin for editor access.")); return; }
   if(!S.loadedP || !S.loadedR){ main.append(h("section",{class:"panel"},h("div",{class:"empty"},h("h2",{text:"Loading billing data…"}),h("p",{text:"Projects and requisitions appear here as soon as the shared log connects."})))); return; }
   if(S.role==="editor" && !S.canEditShare) main.append(h("div",{class:"notice",text:"You can’t save changes yet. Ask your admin to check your role, then reload."}));
   if(S.tab==="cash"){ renderCash(main); return; }
@@ -1673,7 +1832,7 @@ function renderInvoice(main, existingId, pid){
   if(!existingId && !proj(pid)){ main.append(gatePanel("Project not found","Pick a project from the sidebar, then create the invoice.")); return; }
   const st=invState(key, existingId, pid);
   if(!st){ main.append(gatePanel("Invoice not found","It may have been deleted.")); return; }
-  const d=st.d, can=S.canWrite, p=proj(d.projectId);
+  const d=st.d, can=canDo("invoices"), p=proj(d.projectId);
   const mark=()=>{ st.dirty=true; };
   const inp=(id,val,set,attrs)=>{ const el=h("input",Object.assign({id, autocomplete:"off", disabled:!can},attrs||{})); el.value=val==null?"":val; el.addEventListener("input",()=>{ set(el.value); mark(); invRefresh(); }); return el; };
   const fld=(label,id,el,full)=>h("div",{class:"f"+(full?" full":"")},h("label",{for:id,text:label}),el);
@@ -1922,7 +2081,7 @@ async function downloadInvoicePdf(btn){
 
 let CL=null; // id being edited in the client dialog
 function openClient(id, preset){
-  const c=id? clientById(id) : null, can=S.canWrite; CL=id||null;
+  const c=id? clientById(id) : null, can=canDo("lists"); CL=id||null;
   $("clientForm").reset(); $("clErr").textContent="";
   $("clTitle").textContent= c? (can? "Edit client" : c.name||"Client") : "New client";
   const n=c? clientProjects(c).length : 0;
@@ -1935,7 +2094,7 @@ function openClient(id, preset){
   $("clientDlg").showModal(); if(can) $("clName").focus();
 }
 $("clientForm").addEventListener("submit",async e=>{
-  e.preventDefault(); if(!S.canWrite) return; const err=$("clErr"); err.textContent="";
+  e.preventDefault(); if(!canDo("lists")) return; const err=$("clErr"); err.textContent="";
   const g=id=>$(id).value.trim();
   const name=g("clName"); if(!name){ err.textContent="Enter the company name."; $("clName").focus(); return; }
   const dup=clientByName(name); if(dup && dup.id!==CL){ err.textContent="“"+dup.name+"” is already in the client list."; $("clName").focus(); return; }
@@ -1956,7 +2115,7 @@ $("clientForm").addEventListener("submit",async e=>{
   finally{ btn.disabled=false; }
 });
 function clientsPanel(){
-  const can=S.canWrite, cs=sortedClients();
+  const can=canDo("lists"), cs=sortedClients();
   const pnl=h("section",{class:"panel",id:"set-clients"},h("div",{class:"ph"},h("h2",{text:"Clients"}),h("span",{class:"sub",text:(cs.length? cs.length+" client"+(cs.length===1?"":"s")+" · " : "")+"Shared with everyone"+(can? " · editors can add and edit" : "")})));
   if(!cs.length) pnl.append(h("div",{class:"empty"},h("p",{text:"Keep every owner and GC you bill in one place: company name, address and billing contact. Choose them in requisitions and invoices and the name and address fill in."+(can? " Add your first client below." : "")})));
   const rows=h("div",{class:"cllist"});
@@ -2021,7 +2180,8 @@ function navProject(p, sec){
   more.addEventListener("click",e=>{ e.stopPropagation(); if(PM && PM.pid===p.id){ closePMenu(); return; } openPMenu(p.id, more, sec.key); });
   row.addEventListener("contextmenu",e=>{ e.preventDefault(); openPMenu(p.id, more, sec.key); });
   row.append(btn, more);
-  const canDrag = S.canWrite || sec.key==="pinned";
+  if((S.coApps||[]).some(a=>a.projectId===p.id && a.status==="responded" && coApp(a.coId)===a)) btn.append(h("span",{class:"navalert",title:"The owner answered a change order",role:"img","aria-label":"The owner answered a change order"}));
+  const canDrag = canDo("setup") || sec.key==="pinned";
   if(canDrag && !(S.q||"").trim()){
     btn.draggable=true;
     btn.addEventListener("dragstart",e=>{ DRAG={pid:p.id, sec:sec.key}; try{ e.dataTransfer.effectAllowed="move"; e.dataTransfer.setData("text/plain",p.id); }catch(x){} row.classList.add("dragging"); closePMenu(); });
@@ -2035,7 +2195,7 @@ function navProject(p, sec){
 function clearDropMarks(){ document.querySelectorAll(".drop-before,.drop-after,.drop-into").forEach(x=>x.classList.remove("drop-before","drop-after","drop-into")); }
 function dropAllowed(from, to){
   if(to==="pinned") return true;
-  if(!S.canWrite) return false;
+  if(!canDo("setup")) return false;
   if(from===to) return true;
   return /^g:/.test(to) || to==="done" || from==="pinned" || from==="done";
 }
@@ -2058,7 +2218,7 @@ async function moveProject(pid, fromKey, toKey, targetId, after){
       const pins=(S.pins||[]).filter(x=>x!==pid); let i=targetId? pins.indexOf(targetId)+(after?1:0) : pins.length; if(i<0) i=pins.length;
       pins.splice(i,0,pid); await savePins(pins); return;
     }
-    if(!S.canWrite) return;
+    if(!canDo("setup")) return;
     if(fromKey==="pinned") await savePins((S.pins||[]).filter(x=>x!==pid));
     const upd={};
     if(/^g:/.test(toKey)){ const gid=toKey==="g:none"? null : toKey.slice(2); if((p.groupId||null)!==gid) upd.groupId=gid; if(p.status==="complete") upd.status="active"; }
@@ -2101,7 +2261,7 @@ function positionPMenu(){
 }
 function buildPMenu(){
   const m=$("pmenu"); const p=proj(PM.pid); if(!p){ closePMenu(); return; }
-  const can=S.canWrite, pinned=(S.pins||[]).includes(p.id);
+  const can=canDo("setup"), pinned=(S.pins||[]).includes(p.id);
   const sec=sectionByKey(PM.secKey); const items=sec.items; const idx=items.findIndex(x=>x.id===p.id);
   const mi=(label, fn, o)=>{ o=o||{}; return h("button",{type:"button",role:o.check!==undefined?"menuitemradio":"menuitem","aria-checked":o.check!==undefined? String(!!o.check):null,class:"mi"+(o.danger?" danger":""),disabled:!!o.disabled,onclick:async()=>{ if(!o.keep) closePMenu(); await fn(); }},
     h("span",{class:"mic","aria-hidden":"true",text: o.check? "✓" : (o.icon||"")}), h("span",{class:"ml",text:label}), o.hint? h("span",{class:"mk",text:o.hint}) : null); };
@@ -2124,16 +2284,18 @@ function buildPMenu(){
       ni.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); go(); } if(e.key==="Escape"){ e.stopPropagation(); PM.newGroup=false; buildPMenu(); } });
       kids.push(h("div",{class:"mnew"},ni,h("button",{class:"btn primary",type:"button",text:"Add",onclick:go})));
       setTimeout(()=>{ const x=$("pmNewGroup"); if(x) x.focus(); },0);
-    } else kids.push(mi("New group…",()=>{ PM.newGroup=true; buildPMenu(); positionPMenu(); },{icon:"+",keep:true}));
+    } else if(canGroups()) kids.push(mi("New group…",()=>{ PM.newGroup=true; buildPMenu(); positionPMenu(); },{icon:"+",keep:true}));
     kids.push(h("div",{class:"msep"}), h("div",{class:"mlabel",text:"Tab color"}));
     kids.push(swatches(p.color, async c=>{ try{ await db.doc("projects/"+p.id).update({color:c, updatedAt:new Date().toISOString(), updatedBy:S.myId}); }catch(e){ toast("Couldn’t change the color."); } }));
     kids.push(h("div",{class:"msep"}));
     kids.push(mi(p.status==="complete"? "Reopen project" : "Mark as completed", async()=>{ try{ await db.doc("projects/"+p.id).update({status:p.status==="complete"?"active":"complete", updatedAt:new Date().toISOString(), updatedBy:S.myId}); toast((p.name||"Project")+(p.status==="complete"?" reopened":" marked completed")); }catch(e){ toast("Couldn’t update the project."); } },{icon:p.status==="complete"?"↺":"▣"}));
-    kids.push(mi("New invoice",()=>setTab("newinv-"+p.id),{icon:"+"}));
-    kids.push(mi("New change order",()=>{ S.coPreset=null; S.cob=null; setTab("newco-"+p.id); },{icon:"+"}));
-    kids.push(mi("New requisition",()=>{ setTab(p.id); openReq(p.id,null); },{icon:"+"}));
-    kids.push(mi("Edit project…",()=>openProject(p.id),{icon:"✎"}));
   }
+  { const adds=[];
+    if(canDo("invoices")) adds.push(mi("New invoice",()=>setTab("newinv-"+p.id),{icon:"+"}));
+    if(canDo("cos")) adds.push(mi("New change order",()=>{ S.coPreset=null; S.cob=null; setTab("newco-"+p.id); },{icon:"+"}));
+    if(canDo("reqs")) adds.push(mi("New requisition",()=>{ setTab(p.id); openReq(p.id,null); },{icon:"+"}));
+    if(can) adds.push(mi("Edit project…",()=>openProject(p.id),{icon:"✎"}));
+    if(adds.length){ if(!can) kids.push(h("div",{class:"msep"})); kids.push(...adds); } }
   m.replaceChildren(...kids);
   m.setAttribute("aria-label","Options for "+(p.name||"project"));
 }
@@ -2198,8 +2360,8 @@ function buildAMenu(){
   if(S.isAdmin) kids.push(mi("Team & access", "Invite people, set roles", ()=>goSection("team"), {icon:"👥",count:n,cur:S.tab==="team"}));
   if(ok){
     kids.push(mi("Settings", "Sidebar, groups, tab colors", ()=>goSection("settings"), {icon:"⚙",cur:S.tab==="settings"}));
-    kids.push(mi("Clients", (S.clients.length? S.clients.length+" · " : "")+(S.canWrite? "Add and edit the clients you bill" : "Names and addresses"), ()=>goSection("settings","set-clients"), {icon:"🏛"}));
-    kids.push(mi("Project groups", S.canWrite? "Add, rename, reorder" : "See how projects are grouped", ()=>goSection("settings","set-groups"), {icon:"▤"}));
+    kids.push(mi("Clients", (S.clients.length? S.clients.length+" · " : "")+(canDo("lists")? "Add and edit the clients you bill" : "Names and addresses"), ()=>goSection("settings","set-clients"), {icon:"🏛"}));
+    kids.push(mi("Project groups", canGroups()? "Add, rename, reorder" : "See how projects are grouped", ()=>goSection("settings","set-groups"), {icon:"▤"}));
     kids.push(mi("Company info", "Name, address, phone, logo", ()=>goSection("settings","set-company"), {icon:"🏢"}));
   }
   const PF=window.__appPlatform; kids.push(h("div",{class:"msep"})); if(PF.companies.length>1) kids.push(mi("Switch company", PF.companies.length+" companies", ()=>PF.switchCompany())); kids.push(mi("Sign out", S.me.email||"", ()=>PF.signOut()));
@@ -2345,6 +2507,8 @@ function openCreate(){
   $("cProjectHint").textContent = ps.length? "" : "You need a project before you can bill it.";
   const syncHint=()=>{ const p=proj(sel.value); if(!p){ return; } const s=stats(p); const nextNo=s.rs.reduce((m,r)=>Math.max(m,num(r.appNo)),0)+1; $("cProjectHint").textContent="Billed to "+(p.client||"—")+" · next application #"+nextNo; };
   sel.onchange=syncHint; if(ps.length) syncHint();
+  $("kindAia").disabled=!canDo("reqs"); $("kindInv").disabled=!canDo("invoices");
+  if($("kindAia").disabled) $("kindInv").checked=true; else if($("kindInv").disabled) $("kindAia").checked=true;
   $("createDlg").showModal();
   (ps.length? $("kindAia") : $("cGo")).focus();
 }
@@ -2708,7 +2872,7 @@ function renderReqBuilder(main, existingId, pid){
   if(!existingId && !proj(pid)){ main.append(gatePanel("Project not found","Pick a project from the sidebar, then start the requisition.")); return; }
   const st=rqState(key, existingId, pid);
   if(!st){ main.append(gatePanel("Requisition not found","It may have been deleted.")); return; }
-  const d=st.d, p=proj(d.projectId), can=S.canWrite && !st.locked;
+  const d=st.d, p=proj(d.projectId), can=canDo("reqs") && !st.locked;
   if(!p){ main.append(gatePanel("Project not found","This requisition’s project was deleted.")); return; }
   ubInit(st);
   const mark=()=>{ st.dirty=true; ubCheck(st,"rq"); };
@@ -2734,17 +2898,17 @@ function renderReqBuilder(main, existingId, pid){
       can && st.isNew? h("button",{class:"btn",type:"button",text:"Import / scan requisition",onclick:()=>openReqImport(p.id)}) : null,
       can && !st.locked && !d.lines.some(l=>num(l.prev)>0.004)? h("button",{class:"btn",type:"button",id:"rqScanProp",text:"Scan proposal",onclick:()=>psStart(st,p)}) : null,
       dlBtn,
-      S.canWrite && st.locked? h("button",{class:"btn primary",type:"button",text:"Edit requisition",onclick:()=>{ st.locked=false; render(); }}) : null,
+      canDo("reqs") && st.locked? h("button",{class:"btn primary",type:"button",text:"Edit requisition",onclick:()=>{ st.locked=false; render(); }}) : null,
       can && !st.isNew? h("button",{class:"btn",type:"button",text:"Cancel editing",onclick:()=>{ S.rq=null; render(); }}) : null,
       can? ubButtons(st,"rq") : null,
       can? h("button",{class:"btn primary",type:"button",text: st.isNew? "Save requisition" : "Save changes",onclick:e=>saveReq(e.currentTarget)}) : null)));
-  if(st.locked && S.canWrite) main.append(h("div",{class:"notice rqlocknote"},h("b",{text:"Saved requisition. "}),h("span",{text:"It’s locked so nothing changes by accident. Click "}),h("b",{text:"Edit requisition"}),h("span",{text:" to make changes. Status and payments can still be updated from the billing history."})));
+  if(st.locked && canDo("reqs")) main.append(h("div",{class:"notice rqlocknote"},h("b",{text:"Saved requisition. "}),h("span",{text:"It’s locked so nothing changes by accident. Click "}),h("b",{text:"Edit requisition"}),h("span",{text:" to make changes. Status and payments can still be updated from the billing history."})));
 
   { const ab=spAheadBanner(st); if(ab) main.append(ab); }
   if(st.isNew && !d.lines.length){
     main.append(h("div",{class:"notice rqstart"},
       h("b",{text:"Set up the schedule of values once for this project."}),
-      h("span",{text:" First pay app? Scan the proposal: it brings in the divisions, CSI codes and amounts. Already billed this job? Import your last requisition Excel file (every line, change order and what was billed before). Or type the lines in below."}),
+      h("span",{text:" First pay app? Scan the proposal: it brings in the divisions, CSI codes and amounts. Already billed this job? Import your last requisition as a PDF or Excel file (every line, change order and what was billed before). Or type the lines in below."}),
       can? h("div",{class:"actions",style:"margin-top:10px"},h("button",{class:"btn primary",type:"button",text:"Scan proposal",onclick:()=>psStart(st,p)}),h("button",{class:"btn",type:"button",text:"Import / scan requisition",onclick:()=>openReqImport(p.id)})) : null));
   } else if(st.isNew && d.prevNote && d.prevEditable){
     main.append(h("div",{class:"notice",text:d.prevNote+"."}));
@@ -2778,6 +2942,8 @@ function renderReqBuilder(main, existingId, pid){
 
   // 2. schedule of values
   const showF=st.showStored, det=d.layout==="detailed", editCol=st.editLines&&can, csiOn=d.itemMode==="csi";
+  // the "Release retainage now" column shows in any layout once release is turned on or an amount is entered
+  const relOn=det || !!st.showRel || d.lines.concat(d.cos).some(l=>num(l.relThis));
   if(!csiOn && st.autoNum && can){ let n=0, ch=false; for(const l of d.lines) if(!l.os){ const t=String(++n); if(l.item!==t){ l.item=t; st.dirty=true; ch=true; } } if(ch) st.ub.snap=ubSnap(st); }
   const setItemMode=v=>{
     if(v==="csi"){ d.itemMode="csi"; st.autoNum=false; st.editLines=true;
@@ -2906,7 +3072,7 @@ function renderReqBuilder(main, existingId, pid){
     {k:"bal", th:"Balance", num:true, cell:(l,x)=>h("span",{id:"rq-bal-"+l.id,text:fmtN(x.bal)})},
     {k:"rate", th:"Retainage %", show:st.lineRet, num:true, nototal:true, cls:"ratecol", cell:(l,x,i)=> inp("rqrp-"+l.id, has(l.retPct)? l.retPct : String(num(d.retPct)), v=>{ const t=v.trim(); l.retPct = (t!=="" && !l.os && num(t)===num(d.retPct))? "" : t; },{inputmode:"decimal",title:"Retainage held on this line. Type 0 for no retainage.","aria-label":"Retainage %, "+lab(l,i),class:"numin pcin rate"+(has(l.retPct) && num(l.retPct)!==num(d.retPct)? " own" : "")})},
     {k:"ret", th: det? "Retainage held" : "Retainage", num:true, cell:(l,x)=>h("span",{id:"rq-ret-"+l.id,text:fmtN(x.ret)})},
-    {k:"rel", th:"Release retainage now", show:det, num:true, cell:(l,x,i)=> numIn("rqrl-"+l.id,l.relThis,v=>{ l.relThis=v; },"Release retainage this period, "+lab(l,i),{class:"numin relin"})},
+    {k:"rel", th:"Release retainage now", show:relOn, num:true, cell:(l,x,i)=> numIn("rqrl-"+l.id,l.relThis,v=>{ l.relThis=v; },"Release retainage this period, "+lab(l,i),{class:"numin relin"})},
     {k:"net", th:"Net payment", num:true, strong:true, cell:(l,x)=>h("span",{id:"rq-net-"+l.id,text:fmtN(x.net)})},
     {k:"del", th:"", show: st.editLines && can, nototal:true, cls:"delcol", cell:(l,x,i,isCo,arr)=>{
       const billed=num(l.prev)>0.004 || num(l.storedPrev)>0.004;
@@ -2975,6 +3141,14 @@ function renderReqBuilder(main, existingId, pid){
   const addLine=()=>{ const n=d.lines.reduce((m,c)=>Math.max(m, Number(c.item)||0),0)+1; const nl={id:rqid("l"), item: csiOn? "" : String(n), desc:"", value:"", prev:"0", work:"", stored:"", storedPrev:0}; d.lines.push(nl); st.editLines=true; mark(); render(); setTimeout(()=>{ const el=$((csiOn? "rqitem-" : "rqdesc-")+nl.id); if(el) el.focus(); },0); };
   const fillAll=()=>{ for(const l of d.lines.concat(d.cos)){ const vv=rqAdj(l); const rest=r2(vv-num(l.prev)-num(l.stored)); l.work = rest? String(rest) : ""; } mark(); render(); };
   const clearAll=()=>{ for(const l of d.lines.concat(d.cos)) l.work=""; mark(); render(); };
+  // retainage still held on each line (with this period's work), before any release on this application
+  const relCtx=()=>({rp:num(d.retPct)/100, sp:(has(d.storedRetPct)? num(d.storedRetPct) : num(d.retPct))/100, lm:d.round==="line"});
+  const heldOf=l=>{ const k=relCtx(), x=rqLineCalc({...l, relThis:0}, k.rp, k.sp, k.lm); return r2(x.retW+x.retS-x.relPrev); };
+  // credit change orders carry negative retainage, so each line releases exactly what it holds, credits included
+  const heldAll=()=>r2(d.lines.concat(d.cos).reduce((a,l)=>a+heldOf(l),0));
+  const releaseAll=()=>{ for(const l of d.lines.concat(d.cos)){ const hv=heldOf(l); l.relThis= Math.abs(hv)>0.004? String(hv) : ""; } st.showRel=true; mark(); render();
+    setTimeout(()=>{ const m=$("rqRelMsg"); if(m) m.textContent="All retainage held is released on this application. Line 8 now includes it."; },0); };
+  const relToggle=()=>{ if(relOn && !det){ for(const l of d.lines.concat(d.cos)) l.relThis=""; st.showRel=false; mark(); } else st.showRel=true; render(); };
   left.append(h("section",{class:"panel"},
     h("div",{class:"ph"},h("h2",{text:"Schedule of values"}),h("span",{class:"sub",text: d.fromApp? "“From previous” is carried over from application #"+d.fromApp : (d.prevEditable && d.lines.length? "Type what was billed before on each line in “From previous”" : "Enter this period in $ or as % complete to date")})),
     can? (()=>{ const grp=(title,...kids)=>h("div",{class:"rqgrp",role:"group","aria-label":title}, h("span",{class:"rqgl",text:title}), h("div",{class:"rqgb"},...kids));
@@ -2994,7 +3168,15 @@ function renderReqBuilder(main, existingId, pid){
             lay.value=d.layout==="detailed"? "detailed" : "standard"; lay.addEventListener("change",()=>{ d.layout=lay.value; mark(); render(); }); return lay; })()),
         grp("This period",
           h("button",{class:"btn chipbtn",type:"button",text:"Clear this period",onclick:clearAll}),
-          h("button",{class:"btn chipbtn",type:"button",text:"Bill everything left (final)",onclick:fillAll}))); })() : null,
+          h("button",{class:"btn chipbtn",type:"button",text:"Bill everything left (final)",onclick:fillAll})),
+        grp("Retainage",
+          (()=>{ const held=heldAll(); return h("button",{class:"btn chipbtn",type:"button",id:"rqRelAll",disabled:held<=0.004,
+            text: held>0.004? "Bill retainage held ("+money(held)+")" : "No retainage held",
+            title:"Release all the retainage held on every line on this application",onclick:releaseAll}); })(),
+          det? null : h("button",{class:"btn chipbtn",type:"button",id:"rqRelCol","aria-pressed":String(relOn),
+            text: relOn? "Stop releasing retainage" : "Release part of the retainage",
+            title: relOn? "Remove the release amounts from this application" : "Show the “Release retainage now” column to release by line",onclick:relToggle}),
+          h("span",{class:"hint",id:"rqRelMsg",role:"status"}))); })() : null,
     can? h("div",{class:"rqnumbar"},
       h("span",{class:"rqgl",text:"Item column"}),
       csiModeSeg("rqItemMode", csiOn? "csi" : "num", setItemMode),
@@ -3124,7 +3306,7 @@ function rqValidate(d){
   if(!(Math.round(num(d.appNo))>0)) return ["rqApp","Enter the application number."];
   if(reqsFor(d.projectId).some(r=>r.id!==(S.rq&&S.rq.id) && num(r.appNo)===Math.round(num(d.appNo)))) return ["rqApp","Application #"+Math.round(num(d.appNo))+" already exists on this project."];
   if(!d.periodTo) return ["rqPeriod","Choose the “period to” date."];
-  if(!d.lines.length) return [null,"Add the schedule of values first (import from Excel or add lines)."];
+  if(!d.lines.length) return [null,"Add the schedule of values first (import a past requisition or add lines)."];
   const bad=d.lines.concat(d.cos).find(l=>String(l.value).trim()!=="" && !isFinite(Number(String(l.value).replace(/[$,\s]/g,""))));
   if(bad) return ["rqval-"+bad.id,"A scheduled value isn’t a number."];
   return null;
@@ -3500,6 +3682,183 @@ function cDate(X,c){
   return null;
 }
 function findLabel(g, re){ for(let r=0;r<g.length;r++) for(let c=0;c<g[r].length;c++){ const t=cTxt(g[r][c]); if(t && re.test(t)){ for(let k=c+1;k<Math.min(g[r].length,c+8);k++){ const v=g[r][k]; if(v && cTxt(v) && !re.test(cTxt(v))) return {cell:v, r, c:k, labelC:c}; } } } return null; }
+/* ---------- read a requisition PDF (G702/G703) into the same grid the Excel reader uses ---------- */
+// Text is placed by where it sits on the page: columns come from how numbers line up (right edges),
+// where text starts (left edges) and the column headings; then every row becomes a row of cells.
+const PR_NUM=/^\(?\s*-?\s*\$?\s*-?\s*(\d{1,3}(,\d{3})+|\d+)?(\.\d+)?\s*\)?\s*%?$/;
+function prNum(s){
+  const t=String(s).trim(); if(/^[-–—]+$/.test(t)) return {v:0};
+  if(!/\d/.test(t) || !PR_NUM.test(t)) return null;
+  const neg=/^\(.*\)$/.test(t) || /^-|\$\s*-/.test(t), pct=/%$/.test(t);
+  let v=Number(t.replace(/[^\d.]/g,"")); if(!isFinite(v)) return null; if(neg) v=-v; if(pct) v=v/100;
+  return {v, pct};
+}
+async function prPageItems(pdf, p){
+  const page=await pdf.getPage(p); const vp=page.getViewport({scale:1}); const V=vp.transform;
+  const mul=m=>[V[0]*m[0]+V[2]*m[1], V[1]*m[0]+V[3]*m[1], V[0]*m[2]+V[2]*m[3], V[1]*m[2]+V[3]*m[3], V[0]*m[4]+V[2]*m[5]+V[4], V[1]*m[4]+V[3]*m[5]+V[5]];
+  const tc=await page.getTextContent(); const its=[], raw=[];
+  // a page stored upside down: turn its text the right way round
+  let up=0, down=0; for(const it of tc.items){ if(!String(it.str||"").trim()) continue; const m=mul(it.transform); if(Math.abs(m[0])>=Math.abs(m[1])){ if(m[0]>0) up++; else down++; } }
+  const flip=down>up;
+  for(const it of tc.items){
+    const s=String(it.str||"").replace(/\s+/g," ").trim(); if(!s) continue;
+    let m=mul(it.transform); if(Math.abs(m[1])>Math.abs(m[0])+0.01) continue;          // skip sideways text
+    if(flip){ if(m[0]>0) continue; m=[-m[0],-m[1],-m[2],-m[3], vp.width-m[4], vp.height-m[5]]; }
+    else if(m[0]<0) continue;
+    const h=Math.hypot(m[2],m[3])||8, w=Math.max(0, it.width||0);
+    // keep leading/trailing spaces out of the width
+    const lead=(String(it.str).length-String(it.str).trimStart().length), all=String(it.str).length||1;
+    const x0=m[4]+w*lead/all, x1=m[4]+w*(String(it.str).trimEnd().length)/all;
+    // one piece of text can hold several cells ("6 Openings", "$1,200.00 $0.00"): split it into words, placed by their share of the width
+    raw.push({s, x0, x1:Math.max(x1,x0+1), y:m[5], h});
+    const W=Math.max(x1,x0+1)-x0, tr=String(it.str).trim(), n=tr.length||1; let k=0;
+    const words=tr.split(/(\s+)/); const parts=[];
+    for(const wd of words){ if(!wd.trim()){ k+=wd.length; continue; } parts.push({s:wd, a:k, b:k+wd.length}); k+=wd.length; }
+    if(parts.length>1 && parts.some(p=>prNum(p.s))){
+      // keep runs of text words together; numbers stand alone ("$" sticks to the number after it)
+      const runs=[]; for(const p of parts){ const r=runs[runs.length-1]; const isN=!!prNum(p.s)||p.s==="$";
+        if(r && !isN && !r.num) { r.s+=" "+p.s; r.b=p.b; } else if(r && r.s==="$" && prNum(p.s)){ r.s=p.s; r.b=p.b; r.num=true; } else runs.push({s:p.s, a:p.a, b:p.b, num:isN}); }
+      for(const r of runs) its.push({s:r.s, x0:x0+W*r.a/n, x1:x0+W*r.b/n, y:m[5], h});
+    } else its.push({s, x0, x1:Math.max(x1,x0+1), y:m[5], h});
+  }
+  try{ for(const a of await page.getAnnotations()){                                      // filled-in form fields
+    const v= typeof a.fieldValue==="string"? a.fieldValue : Array.isArray(a.fieldValue)? a.fieldValue.join(" ") : "";
+    if(a.subtype!=="Widget" || !v || !v.trim() || !a.rect) continue;
+    const r=vp.convertToViewportRectangle(a.rect); const x0=Math.min(r[0],r[2]), x1=Math.max(r[0],r[2]), y0=Math.min(r[1],r[3]), y1=Math.max(r[1],r[3]);
+    const h=Math.min(11, Math.max(6, y1-y0-2)); const num=prNum(v.trim());
+    // a field's box lines up with its column: numbers sit on the right edge, text on the left
+    const fld={s:v.replace(/\s+/g," ").trim(), x0: num? x1-Math.max(4,v.trim().length*h*0.5) : x0+2, x1: num? x1-2 : Math.min(x1, x0+2+v.trim().length*h*0.5), y:(y0+y1)/2+h*0.35, h}; its.push(fld); raw.push(Object.assign({},fld));
+  } }catch(e){}
+  return {its, raw, w:vp.width};
+}
+// rows of the page, each a list of cells (words close together joined)
+function prRows(its){
+  its.sort((a,b)=>a.y-b.y || a.x0-b.x0);
+  const rows=[];
+  for(const it of its){ const r=rows[rows.length-1];
+    if(r && Math.abs(it.y-r.y)<=Math.max(2, Math.min(it.h,r.h)*0.45)) r.its.push(it);
+    else rows.push({y:it.y, h:it.h, its:[it]}); }
+  for(const r of rows){
+    r.its.sort((a,b)=>a.x0-b.x0); const cells=[];
+    for(const it of r.its){ const c=cells[cells.length-1]; const gap=c? it.x0-c.x1 : 1e9; const hh=Math.min(it.h, c? c.h : it.h);
+      if(c && c.s==="$" && prNum(it.s)){ c.s=it.s; c.x0=Math.min(c.x0,it.x0); c.x1=it.x1; continue; }       // "$   1,234.00"
+      const bothText=!prNum(it.s) && !prNum(c&&c.s||"");
+      const joinable=c && (bothText? (gap<hh*0.25 || (gap<hh*0.9 && !/:$/.test(c.s))) : gap<hh*0.08);
+      if(joinable){ c.s+=(gap<hh*0.12? "" : " ")+it.s; c.x1=Math.max(c.x1,it.x1); }
+      else cells.push({s:it.s, x0:it.x0, x1:it.x1, h:it.h}); }
+    r.cells=cells.filter(c=>c.s!=="$");
+    r.text=r.cells.map(c=>c.s).join(" ");
+  }
+  return rows.filter(r=>r.cells.length);
+}
+const PR_HEAD=/SCHEDULED|\bSOV\b|BUDGET|CONTRACT\s+(VALUE|AMOUNT)|\bVALUE\b/i;
+function prHeader(rows){
+  for(let i=0;i<rows.length;i++){ if(!/DESCRIPTION/i.test(rows[i].text)) continue;
+    const block=rows.slice(Math.max(0,i-2), i+6).map(r=>r.text).join(" ");
+    if(!PR_HEAD.test(block)) continue;
+    let s=i, e=i;                                     // header block: label rows above/below without money in them
+    while(s>0 && i-s<5 && rows[s-1].cells.filter(c=>prNum(c.s) && /[.,$]|\d{2,}/.test(c.s)).length===0 && !rows[s-1].cells.some(c=>/:/.test(c.s)) && rows[s-1].y>=rows[s].y-Math.max(rows[s].h,6)*4) s--;
+    for(let k=i+1;k<Math.min(rows.length,i+8);k++){ const nums=rows[k].cells.filter(c=>{ const n=prNum(c.s); return n && /[.,$]/.test(c.s); }).length; if(nums>=1) break; e=k; }
+    // stop the block at column-letter / formula rows only if real data follows; keep it tight
+    while(e>i && rows[e].cells.length && rows[e].y-rows[e-1].y>rows[e].h*3) e--;
+    return {s, e, i};
+  }
+  return null;
+}
+function prCluster(vals, tol){
+  vals.sort((a,b)=>a.k-b.k); const out=[];
+  for(const v of vals){ const g=out[out.length-1]; if(g && v.k-g.last<=tol){ g.m.push(v); g.last=v.k; } else out.push({m:[v], last:v.k}); }
+  return out.map(g=>{ const ks=g.m.map(v=>v.k).sort((a,b)=>a-b); return {k:ks[Math.floor(ks.length/2)], m:g.m}; });
+}
+async function pdfReqBook(X, pdf){
+  const pages=[]; let textLen=0;
+  for(let p=1;p<=Math.min(pdf.numPages,30);p++){ const {its, raw}=await prPageItems(pdf,p); textLen+=raw.reduce((s,i)=>s+i.s.length,0); const rows=prRows(its); pages.push({p, rows, raw:prRows(raw), hd:prHeader(rows)}); }
+  // the continuation sheet: pages with a schedule-of-values heading, plus the pages right after them that carry on the table
+  const sheet=[]; let on=false;
+  for(const pg of pages){
+    if(pg.hd){ on=true; sheet.push(pg); continue; }
+    const dataRows=pg.rows.filter(r=>r.cells.filter(c=>prNum(c.s)).length>=4).length;
+    const isForm=/G702|APPLICATION\s+AND\s+CERTIFICAT|APPLICATION\s+FOR\s+PAYMENT/i.test(pg.rows.slice(0,8).map(r=>r.text).join(" "));
+    if(on && dataRows>=2 && !isForm) sheet.push(pg); else on=false;
+  }
+  const form=[];                                       // header facts: everything that isn't the table
+  const lv=s=>{ if(/^By\s*:/i.test(s)) return [s]; const m=/^(.{2,40}?[A-Za-z.#)])\s*:\s*(\S.*)$/.exec(s); return m? [m[1]+":", m[2]] : [s]; };
+  const val=s=>{ const n=prNum(s); return n && !/\//.test(s)? n.v : s; };
+  for(const pg of pages){ const yCut=pg.hd? pg.rows[pg.hd.s].y-1 : (sheet.includes(pg)? -1e9 : 1e9);
+    const rs=pg.raw.filter(r=>r.y<yCut);
+    for(let i=0;i<rs.length;i++){ const r=rs[i], nx=rs[i+1];
+      const labels=r.cells.filter(c=>/:\s*$/.test(c.s));
+      if(labels.length && labels.length===r.cells.length && nx && nx.y-r.y<=r.h*2.6){
+        const used=new Set();
+        for(const lb of labels){ const v=nx.cells.find(c=>!used.has(c) && Math.abs(c.x0-lb.x0)<=Math.max(6,lb.h)); if(v){ used.add(v); form.push([lb.s, val(v.s)]); } else form.push([lb.s]); }
+        const rest=nx.cells.filter(c=>!used.has(c)); if(rest.length) form.push(rest.flatMap(c=>lv(c.s)).map(val));
+        i++; continue; }
+      form.push(r.cells.flatMap(c=>lv(c.s)).map(val)); } }
+  const wb=X.utils.book_new();
+  X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet(form.length? form : [[""]]), "Form");
+  if(!sheet.length) return {wb, textLen, found:false};
+  const first=sheet.find(pg=>pg.hd);
+  const body=pg=> pg.hd? pg.rows.slice(pg.hd.e+1) : pg.rows;
+  const allData=sheet.flatMap(body), numRows=allData.filter(r=>r.cells.filter(c=>prNum(c.s)).length>=2);
+  const hMed=(()=>{ const hs=allData.flatMap(r=>r.cells.map(c=>c.h)).sort((a,b)=>a-b); return hs[Math.floor(hs.length/2)]||8; })();
+  const tol=Math.max(3, hMed*0.6), need=Math.max(2, Math.ceil(numRows.length*0.2));
+  // columns from the data: numbers line up on their right edge, text on its left edge
+  const numCells=numRows.flatMap(r=>r.cells.filter(c=>prNum(c.s)));
+  const txtCells=allData.flatMap(r=>r.cells.filter(c=>!prNum(c.s)));
+  const cols=[];
+  for(const g of prCluster(numCells.map(c=>({k:c.x1, c})), tol)) if(g.m.length>=need){ const ls=g.m.map(v=>v.c.x0).sort((a,b)=>a-b); cols.push({kind:"n", nA:g.k, l:ls[Math.floor(ls.length*0.1)], r:g.k}); }
+  for(const g of prCluster(txtCells.map(c=>({k:c.x0, c})), tol)) if(g.m.length>=need){ const rs=g.m.map(v=>v.c.x1).sort((a,b)=>a-b); cols.push({kind:"t", tA:g.k, l:g.k, r:Math.max(g.k+4, rs[rs.length-1])}); }
+  // a number column and a text column on top of each other are one column (item numbers and "CO1" labels)
+  cols.sort((a,b)=>a.l-b.l);
+  for(let i=0;i<cols.length-1;i++){ const a=cols[i], b=cols[i+1]; const o=Math.min(a.r,b.r)-Math.max(a.l,b.l), w=Math.min(a.r-a.l, b.r-b.l)||1;
+    if(o>0.3*w && (a.nA==null || b.nA==null) && (a.tA==null || b.tA==null)){ cols.splice(i,2,{kind:"m", l:Math.min(a.l,b.l), r:Math.max(a.r,b.r), nA:a.nA??b.nA, tA:a.tA??b.tA}); i--; } }
+  // headings over empty space (a column that's blank on every row) still get a column
+  const hdRows=first.rows.slice(first.hd.s, first.hd.e+1); const hdCells=hdRows.flatMap(r=>r.cells);
+  const groups=[]; for(const c of [...hdCells].sort((a,b)=>a.x0-b.x0)){ const g=groups[groups.length-1]; if(g && c.x0<=g.r-1) g.r=Math.max(g.r,c.x1); else groups.push({l:c.x0, r:c.x1}); }
+  const near=Math.max(tol, hMed*1.4);
+  for(const g of groups){ if(!cols.some(c=>c.r>=g.l-near && c.l<=g.r+near)) cols.push({kind:"h", l:g.l, r:g.r}); }
+  cols.sort((a,b)=>(a.l+a.r)-(b.l+b.r));
+  // each column owns the space up to halfway across the gap to its neighbours
+  cols.forEach((c,i)=>{ c.zl= i? (cols[i-1].r+c.l)/2 : -1e9; c.zr= i<cols.length-1? (c.r+cols[i+1].l)/2 : 1e9; });
+  const zov=(c,x0,x1)=>Math.min(c.zr,x1)-Math.max(c.zl,x0);
+  const zoneOf=(x0,x1)=>{ let bi=0, bo=-1e9; cols.forEach((c,i)=>{ const o=zov(c,x0,x1); if(o>bo){ bo=o; bi=i; } }); return bi; };
+  const place=(cell)=>{ const n=prNum(cell.s);
+    if(n){ let best=-1, bd=1e9; cols.forEach((c,i)=>{ if(c.nA==null) return; const d=Math.abs(c.nA-cell.x1); if(d<bd){ bd=d; best=i; } }); if(best>=0 && bd<=tol*1.5) return best; }
+    else { let best=-1, bd=1e9; cols.forEach((c,i)=>{ if(c.tA==null) return; const d=Math.abs(c.tA-cell.x0); if(d<bd){ bd=d; best=i; } }); if(best>=0 && bd<=tol*1.5) return best; }
+    return zoneOf(cell.x0, cell.x1); };
+  const toRow=r=>{ const out=cols.map(()=>[]); for(const c of r.cells) out[place(c)].push(c.s); return out; };
+  // heading rows: a heading over several sub-headings (like "CHANGE ORDERS" over "PREVIOUS" and "THIS PERIOD") goes to each of their columns
+  const aoa=[]; const hIts=hdRows.flatMap(r=>r.its.map(it=>Object.assign({}, it, {ry:r.y})));
+  for(const r of hdRows){ const out=cols.map(()=>[]);
+    for(const c of r.its){
+      const under=hIts.filter(u=>u.ry>r.y+Math.min(r.h,u.h)*0.5 && (u.x0+u.x1)/2>=c.x0-tol && (u.x0+u.x1)/2<=c.x1+tol);
+      const zs=[...new Set(under.map(u=>zoneOf(u.x0,u.x1)))];
+      if(zs.length>=2) zs.forEach(i=>out[i].push(c.s)); else out[zoneOf(c.x0,c.x1)].push(c.s); }
+    aoa.push(out.map(a=>a.join(" "))); }
+  // one heading row per column (top to bottom), then a few blank rows, so the reader sees the whole heading at once
+  const head=cols.map((c,i)=>aoa.map(r=>r[i]).filter(Boolean).join(" ").replace(/\s+/g," ").trim());
+  aoa.length=0; aoa.push(head); for(let k=0;k<6;k++) aoa.push(cols.map(()=>""));
+  // a column headed only "%" or "RATE" belongs to the heading on its left (like "RETAINAGE  %")
+  for(let i=cols.length-1;i>=1;i--){ const t=aoa[0][i].trim(); if(/^([A-Z]\s+)?(%|RATE|% RATE|RATE %)$/.test(t)){ const left=aoa[0][i-1].replace(/^[A-Z]\s+/,"").trim(), right=(aoa[0][i+1]||"");
+      if((/RATE/i.test(t)? [1,2,3] : [1]).some(d=>/RETAINAGE/i.test(aoa[0][i-d]||"") || /RETAINAGE/i.test(aoa[0][i+d]||""))) aoa[0][i]=("RETAINAGE "+t).trim(); else if(left) aoa[0][i]=(left+" "+t).trim(); } }
+  const descCol=(()=>{ const t=cols.map((c,i)=>aoa.map(r=>r[i]).join(" ")); let i=t.findIndex(x=>/DESCRIPTION\s+OF\s+WORK/i.test(x)); if(i<0) i=t.findIndex(x=>/DESCRIPTION/i.test(x)); return i; })();
+  const PAGE_TOT=/^(PAGE\s+)?(SUB\s*-?\s*)?TOTALS?\b|CARRIED\s+FORWARD|BALANCE\s+FORWARD|GRAND\s+TOTAL|PAGE\s+TOTAL/i;
+  sheet.forEach((pg,pi)=>{ const last=pi===sheet.length-1; let prev=null, prevRow=null;
+    for(const r of body(pg)){
+      if(/^page\s+\d+\s+of\s+\d+$/i.test(r.text.trim())) continue;
+      if(!last && PAGE_TOT.test(r.text.trim())) continue;
+      const cells=toRow(r); const nums=r.cells.filter(c=>prNum(c.s) && place(c)!==descCol).length;
+      // a description that wrapped onto the next line belongs to the line above
+      if(prev && !nums && descCol>=0 && cells.every((a,i)=>i===descCol || !a.length) && cells[descCol].length && prevRow && r.y-prevRow.y<=prevRow.h*2.2 && !/TOTAL|CHANGE\s*ORDER|OWNER/i.test(r.text) && !/TOTAL|CHANGE\s*ORDER/i.test(prev.join(" "))){
+        prev[descCol]=(String(prev[descCol]||"")+" "+cells[descCol].join(" ")).trim(); prevRow=r; continue; }
+      const row=cells.map(a=>{ if(a.length===1){ const n=prNum(a[0]); if(n && !/\//.test(a[0])) return n.v; } return a.join(" "); });
+      aoa.push(row); prev= nums? row : null; prevRow=r;
+    }
+  });
+  X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet(aoa), "G703");
+  return {wb, textLen, found:true, cols};
+}
+
 function parseReqWorkbook(X, wb, fname){
   const out={file:fname, lines:[], cos:[], header:{}, appNo:null, periodTo:null, appDate:null, retPct:null, warnings:[]};
   let sov=null;
@@ -3535,6 +3894,7 @@ function parseReqWorkbook(X, wb, fname){
     const origCands=colT.map((t,i)=>/ORIGINAL/.test(t) && /SOV|VALUE|CONTRACT|BUDGET|SCHEDULED/.test(t) && i!==col.val? i : -1).filter(i=>i>=0);
     // merged headers spread "ORIGINAL SOV" etc. — keep the right-most column of a merged value header only if the left one is empty in data rows
     if(col.desc<0 || col.val<0) continue;
+    if(col.rate>=0){ let bad=0, ok=0; for(let r=hr+1;r<g.length;r++){ const v=cNum(g[r][col.rate]); if(v==null || v===0) continue; const pctTxt=/%/.test(cTxt(g[r][col.rate])); if((v>0 && v<=1) || (pctTxt && v<=30) || (Number.isInteger(v) && v>=1 && v<=20 && cNum(g[r][col.val])!=null && cNum(g[r][col.val])>v*20)) ok++; else bad++; } if(bad>ok) col.rate=-1; }
     let dataStart=hr+1; for(let r=hr+1;r<Math.min(g.length,hr+8);r++){ const t=g[r].map(cTxt).join(" ").toUpperCase(); if((/\(D\s*\+\s*E|TO DATE|STORED|\(C\s*-\s*G|VALUE|APPLICATION|\(G\s*\/\s*C|^COLUMN\d|\bCOLUMN\d+\b/.test(t)) && cNum(g[r][col.val])==null) dataStart=r+1; }
     col.orig=-1; if(origCands.length){ let best=-1, bestN=0; for(const ci of origCands){ let n=0; for(let r=dataStart;r<g.length;r++){ if(cNum(g[r][col.val])!=null && cNum(g[r][ci])!=null) n++; } if(n>bestN){ bestN=n; best=ci; } } col.orig=best; }
     let inCo=false, inOwner=false, inMk=false, curDiv=null, anyDiv=false; const lines=[], cos=[]; let coInLines=0, skippedZero=0, after=0, ownerN=0;
@@ -3612,7 +3972,7 @@ function parseReqWorkbook(X, wb, fname){
 let RI=null;
 function riSetMode(m){
   if(!RI) return; RI.mode=m; $("riModeLines").checked=m==="lines"; $("riModeTotals").checked=m==="totals";
-  $("riDropText").innerHTML = m==="lines"? "Drop Excel files here or <u>choose files</u>" : "Drop one PDF or Excel file here or <u>choose a file</u>";
+  $("riDropText").innerHTML = m==="lines"? "Drop PDF or Excel files here or <u>choose files</u>" : "Drop one PDF or Excel file here or <u>choose a file</u>";
   $("riDropSub").textContent = m==="lines"? "You can drop all past requisitions at once, or add more files later" : "One requisition at a time";
   $("riInput").multiple = m==="lines";
   $("riHint").hidden = m!=="lines"; $("riHand").hidden = m!=="totals";
@@ -3636,15 +3996,24 @@ function riTotals(file){
 async function riAddFiles(list){
   const err=$("riErr"); err.textContent="";
   if(RI && RI.mode==="totals"){ const f=list[0]; if(!f) return; if(!isPdfFile(f) && !isExcelFile(f)){ err.textContent=f.name+" isn’t a PDF or Excel file."; return; } riTotals(f); return; }
-  const pdfs=list.filter(f=>isPdfFile(f)); list=list.filter(f=>!isPdfFile(f));
-  if(pdfs.length){ const f=pdfs[0]; err.replaceChildren(h("span",{text:f.name+" is a PDF. Line items can only come from an Excel file. "}), h("button",{type:"button",class:"linkbtn",text:"Import this PDF with totals only",onclick:()=>riTotals(f)})); if(!list.length) return; }
-  let X; try{ X=await loadXlsx(); }catch(e){ err.textContent="The Excel reader didn’t load. Check your connection and try again."; return; }
+  let X; try{ X=await loadXlsx(); }catch(e){ err.textContent="The file reader didn’t load. Check your connection and try again."; return; }
+  const totalsOffer=(f,msg)=>err.replaceChildren(h("span",{text:msg+" "}), h("button",{type:"button",class:"linkbtn",text:"Import this PDF with totals only",onclick:()=>riTotals(f)}));
   for(const f of list){
-    if(!isExcelFile(f)){ err.textContent=f.name+" isn’t an Excel file."; continue; }
+    const pdfF=isPdfFile(f);
+    if(!pdfF && !isExcelFile(f)){ err.textContent=f.name+" isn’t a PDF or Excel file."; continue; }
     try{
-      const wb=X.read(new Uint8Array(await f.arrayBuffer()),{type:"array", cellNF:true, cellText:true});
+      let wb;
+      if(pdfF){
+        let lib; try{ lib=await loadPdfJs(); }catch(e){ err.textContent="The PDF reader didn’t load. Check your connection and try again."; return; }
+        const pdf=await lib.getDocument({data:new Uint8Array(await f.arrayBuffer()), isEvalSupported:false, disableFontFace:true}).promise;
+        const book=await pdfReqBook(X, pdf);
+        if(book.textLen<40){ totalsOffer(f, f.name+" looks like a scan (a picture with no text), so its line items can’t be read. Use the Excel file if you have it, or"); continue; }
+        if(!book.found){ totalsOffer(f, "Couldn’t find the continuation sheet (G703 schedule of values) in "+f.name+". Use the Excel file if you have it, or"); continue; }
+        wb=book.wb;
+      } else wb=X.read(new Uint8Array(await f.arrayBuffer()),{type:"array", cellNF:true, cellText:true});
       const r=parseReqWorkbook(X, wb, f.name);
-      if(!r.lines.length){ err.textContent="Couldn’t find a schedule of values in "+f.name+"."; continue; }
+      if(!r.lines.length){ if(pdfF) totalsOffer(f, "Couldn’t read the line items in "+f.name+". Use the Excel file if you have it, or"); else err.textContent="Couldn’t find a schedule of values in "+f.name+"."; continue; }
+      if(pdfF) r.fromPdf=true;
       const m=/(?:REQ(?:UISITION)?|PAY\s*APP|APP(?:LICATION)?|PA)\s*(?:NO\.?|#)?\s*[-_ ]?\s*(\d{1,3})(?!\d)|#\s*(\d{1,3})(?!\d)/i.exec(f.name);
       const fromName=m? Number(m[1]||m[2]) : null; r.file=f.name; r.fileObj=f;
       RI.items=RI.items.filter(x=>x.file!==f.name);
@@ -3682,7 +4051,7 @@ function riRender(){
         return h("label",{class:"rino"},h("span",{text:"App #"}),inp); })(),
       h("div",{class:"riinfo"},h("span",{text:(it.periodTo? "Period to "+dShort(it.periodTo) : "No period date")+" · "+plural(it.lines.filter(l=>!l.os).length,"line")+(it.cos.length? " + "+plural(it.cos.length,"change order") : "")+(it.ownerN? " + "+plural(it.ownerN,"owner supplied item") : "")}),
         h("small",{text:"This period "+money2(work)+" · to date "+money2(toDate)+" · due "+money2(due)+" · contract "+money2(contract)+(ex? " · replaces the logged #"+it.appNo : "")}),
-        h("small",{class:"hint",text:it.file}), ...(it.warnings||[]).map(w=>h("small",{class:"warnline",text:w}))),
+        h("small",{class:"hint",text:it.file+(it.fromPdf? " · read from the PDF: check the totals" : "")}), ...(it.warnings||[]).map(w=>h("small",{class:"warnline",text:w}))),
       sel,
       h("button",{class:"iconbtn",type:"button","aria-label":"Remove "+it.file,text:"×",onclick:()=>{ RI.items=RI.items.filter(x=>x!==it); riRender(); }})));
   }
@@ -3755,7 +4124,7 @@ async function riImport(){
 
 /* ---------- settings ---------- */
 function renderSettings(main){
-  const can=S.canWrite;
+  const can=canGroups(), canP=canDo("setup");
   main.append(h("div",{class:"phead"},h("div",{class:"ptitle"},h("h1",{text:"Settings"}),h("span",{class:"meta",text: can? "Keep the client list, organize projects into groups and give each project a tab color." : "Choose how the sidebar looks for you. Only editors can change groups and colors."}))));
   const wrap=h("div",{class:"setgrid"});
   wrap.append(clientsPanel());
@@ -3807,15 +4176,15 @@ function renderSettings(main){
   else {
     const tb=h("tbody");
     for(const p of ps){
-      const gsel=h("select",{id:"pg-"+p.id,"aria-label":"Group for "+(p.name||"project"),disabled:!can,style:"width:auto;min-width:150px"}, h("option",{value:"",text:"No group"}), ...gs.map(g=>h("option",{value:g.id,text:g.name||"Untitled group"})));
+      const gsel=h("select",{id:"pg-"+p.id,"aria-label":"Group for "+(p.name||"project"),disabled:!canP,style:"width:auto;min-width:150px"}, h("option",{value:"",text:"No group"}), ...gs.map(g=>h("option",{value:g.id,text:g.name||"Untitled group"})));
       gsel.value=groupById(p.groupId)? p.groupId : "";
       gsel.addEventListener("change",async()=>{ try{ await db.doc("projects/"+p.id).update({groupId:gsel.value||null}); }catch(e){ gsel.value=p.groupId||""; } });
-      const ssel=h("select",{id:"ps-"+p.id,"aria-label":"Status for "+(p.name||"project"),disabled:!can,style:"width:auto"}, h("option",{value:"active",text:"Active"}), h("option",{value:"complete",text:"Completed"}));
+      const ssel=h("select",{id:"ps-"+p.id,"aria-label":"Status for "+(p.name||"project"),disabled:!canP,style:"width:auto"}, h("option",{value:"active",text:"Active"}), h("option",{value:"complete",text:"Completed"}));
       ssel.value=p.status==="complete"?"complete":"active";
       ssel.addEventListener("change",async()=>{ try{ await db.doc("projects/"+p.id).update({status:ssel.value}); }catch(e){ ssel.value=p.status||"active"; } });
       tb.append(h("tr",null,
         h("td",null,h("span",{style:"display:inline-flex;gap:8px;align-items:center"},roleTag(p.role),h("span",{class:"strong",text:p.name||"Untitled"})),h("span",{class:"small",text:p.client||""})),
-        h("td",null,swatches(p.color, async c=>{ try{ await db.doc("projects/"+p.id).update({color:c}); }catch(e){} }, !can)),
+        h("td",null,swatches(p.color, async c=>{ try{ await db.doc("projects/"+p.id).update({color:c}); }catch(e){} }, !canP)),
         h("td",null,gsel), h("td",null,ssel)));
     }
     pp.append(h("div",{class:"tscroll"},h("table",null,h("thead",null,h("tr",null,h("th",{text:"Project"}),h("th",{text:"Tab color"}),h("th",{text:"Group"}),h("th",{text:"Status"}))),tb)));
@@ -3841,6 +4210,15 @@ function computeAccess(){
   if(S.access==="ok") startData();
 }
 function refresh(){ computeAccess(); render(); }
+// per-person access (online version): which parts of billing this person may change.
+// The database enforces the same rules; these only decide which buttons and fields to offer.
+function PERM(){ const P=window.__appPlatform; return (P && P.perm) || null; }
+function canDo(area){ if(!S.canWrite) return false; const p=PERM(); return !p || !!(p.edit && p.edit[area]); }
+function canCreateProject(){ if(!S.canWrite) return false; const p=PERM(); return !p || !!p.create; }
+function seesAll(){ const p=PERM(); return !p || !!p.all; }
+function canGroups(){ return canDo("setup") && seesAll(); }
+function reqArea(r){ return r && r.type==="invoice"? "invoices" : "reqs"; }
+window.addEventListener("cb-access-changed",()=>{ try{ render(); }catch(e){} });
 
 function renderGate(main){
   if(S.access==="pending" && !S.editingRequest){
@@ -4018,7 +4396,7 @@ function summaryPanel(s, opts){
 const ST_OPTS_REQ=ST_ALL;
 const ST_OPTS_INV=ST_ALL;
 function statusControl(r,p){
-  if(!S.canWrite || !p) return pill(r.status);
+  if(!canDo(reqArea(r)) || !p) return pill(r.status);
   const opts = r.type==="invoice"? ST_OPTS_INV : (r.type==="release"? ST_OPTS_REQ.filter(o=>o[0]!=="revise") : ST_OPTS_REQ);
   const sel=h("select",{class:"stsel st-"+stNorm(r.status),id:"st-"+r.id,"aria-label":"Status of "+reqLabel(r)}, opts.map(([v,l])=>h("option",{value:v,text:l})));
   sel.value=stNorm(r.status);
@@ -4074,7 +4452,7 @@ function renderOverview(main){
     main.append(h("section",{class:"panel"},h("div",{class:"empty"},
       h("h2",{text:"No projects yet"}),
       h("p",{text:"Add each job you bill: whether we’re the GC or a sub, who we bill, contract value and retainage. Every project gets its own tab with its billing history."}),
-      S.canWrite? h("button",{class:"btn primary",type:"button",text:"+ Add the first project",onclick:()=>openProject(null)}) : null)));
+      canCreateProject()? h("button",{class:"btn primary",type:"button",text:"+ Add the first project",onclick:()=>openProject(null)}) : null)));
     return;
   }
   const f=sumF(); const set=(k,v)=>{ f[k]=v; saveSumF(); render(); };
@@ -4177,21 +4555,26 @@ function renderProject(main,p){
   const extra=[]; if(p.number) extra.push("Job "+p.number); extra.push("Retainage "+(num(p.retainagePct)||0)+"%"); extra.push("Terms net "+(num(p.terms)||30)); if(p.billDay) extra.push("Bill by the "+ordinal(num(p.billDay))); if(p.status==="complete") extra.push("Completed");
   main.append(h("div",{class:"phead"},
     h("div",{class:"ptitle"},h("div",{class:"line1"},p.color? h("span",{class:"titledot",style:"--c:"+p.color,"aria-hidden":"true"}):null,roleTag(p.role),h("h1",{text:p.name||"Untitled project"}), groupById(p.groupId)? h("span",{class:"pill st-draft",text:groupById(p.groupId).name}):null),h("span",{class:"meta"},roleLine),h("span",{class:"meta",text:extra.join(" · ")})),
-    S.canWrite? h("div",{class:"actions"},h("button",{class:"btn",type:"button",text:"Edit project",onclick:()=>openProject(p.id)}),h("button",{class:"btn",type:"button",text:"Import / scan requisition",title:"Bring in a requisition you already sent, from a PDF or Excel file",onclick:()=>openReqImport(p.id)}),h("button",{class:"btn",type:"button",text:"+ New invoice",onclick:()=>setTab("newinv-"+p.id)}),h("button",{class:"btn primary",type:"button",text:"+ New requisition",onclick:()=>setTab("newaia-"+p.id)})) : null));
+    (canDo("setup")||canDo("reqs")||canDo("invoices"))? h("div",{class:"actions"},
+      canDo("setup")? h("button",{class:"btn",type:"button",text:"Edit project",onclick:()=>openProject(p.id)}) : null,
+      canDo("reqs")? h("button",{class:"btn",type:"button",text:"Import / scan requisition",title:"Bring in a requisition you already sent, from a PDF or Excel file",onclick:()=>openReqImport(p.id)}) : null,
+      canDo("invoices")? h("button",{class:"btn"+(canDo("reqs")? "" : " primary"),type:"button",text:"+ New invoice",onclick:()=>setTab("newinv-"+p.id)}) : null,
+      canDo("reqs")? h("button",{class:"btn primary",type:"button",text:"+ New requisition",onclick:()=>setTab("newaia-"+p.id)}) : null) : null));
   if(p.notes) main.append(h("div",{class:"notice",text:p.notes}));
   S.ptab=S.ptab||{}; const pt=S.ptab[p.id]==="subs"? "subs" : "billing";
+  if(pt==="subs") for(const n of coAlertNotes(p.id)) main.append(n);
   const nCo=coRows(p.id).length;
   main.append(h("div",{class:"ptabs",role:"tablist","aria-label":"Project pages"}, ...[["billing","Billing"+(nCo? " · "+plural(nCo,"change order") : "")],["subs","Subcontractors"]].map(([v,l])=>h("button",{type:"button",role:"tab",class:"ptab","aria-selected":String(pt===v),text:l,onclick:()=>{ S.ptab[p.id]=v; S.spEdit=null; render(); }}))));
   if(pt==="subs"){ spProjectView(main,p); return; }
-  { const logged=s.rs.filter(r=>!r.built && r.type!=="release"); if(logged.length && S.canWrite) main.append(h("div",{class:"scanup"},
-      h("div",null,h("b",{text:plural(logged.length,"requisition")+" logged with totals only ("+logged.map(r=>"#"+r.appNo).join(", ")+")."}),h("span",{text:" Import their Excel files to get every line item. They’ll open in the requisition builder, and the next requisition will start from them."})),
-      h("button",{class:"btn primary",type:"button",text:"Import Excel with line items",onclick:()=>openReqImport(p.id)}))); }
+  { const logged=s.rs.filter(r=>!r.built && r.type!=="release"); if(logged.length && canDo("reqs")) main.append(h("div",{class:"scanup"},
+      h("div",null,h("b",{text:plural(logged.length,"requisition")+" logged with totals only ("+logged.map(r=>"#"+r.appNo).join(", ")+")."}),h("span",{text:" Import their PDF or Excel files to get every line item. They’ll open in the requisition builder, and the next requisition will start from them."})),
+      h("button",{class:"btn primary",type:"button",text:"Import with line items",onclick:()=>openReqImport(p.id)}))); }
   main.append(summaryPanel(s,{noBalance:true}));
 
   const nEntries=s.rs.length+s.invs.length;
   const panel=h("section",{class:"panel"},h("div",{class:"ph"},h("h2",{text:"Billing history"}),h("span",{class:"sub",text: nEntries? [s.rs.length? plural(s.rs.length,"requisition"):"", s.invs.length? plural(s.invs.length,"invoice"):""].filter(Boolean).join(" · ")+" · newest first" : ""})));
   if(!nEntries){
-    panel.append(h("div",{class:"empty"},h("p",{text:"No requisitions or invoices on this project yet. Build a requisition here, or import the ones you already sent from Excel."}), S.canWrite? h("div",{class:"actions",style:"justify-content:center"},h("button",{class:"btn primary",type:"button",text:"+ New requisition",onclick:()=>setTab("newaia-"+p.id)}),h("button",{class:"btn",type:"button",text:"Import / scan requisition",onclick:()=>openReqImport(p.id)}),h("button",{class:"btn",type:"button",text:"+ New invoice",onclick:()=>setTab("newinv-"+p.id)})):null));
+    panel.append(h("div",{class:"empty"},h("p",{text:"No requisitions or invoices on this project yet. Build a requisition here, or import the ones you already sent (PDF or Excel)."}), (canDo("reqs")||canDo("invoices"))? h("div",{class:"actions",style:"justify-content:center"},canDo("reqs")? h("button",{class:"btn primary",type:"button",text:"+ New requisition",onclick:()=>setTab("newaia-"+p.id)}) : null,canDo("reqs")? h("button",{class:"btn",type:"button",text:"Import / scan requisition",onclick:()=>openReqImport(p.id)}) : null,canDo("invoices")? h("button",{class:"btn",type:"button",text:"+ New invoice",onclick:()=>setTab("newinv-"+p.id)}) : null):null));
   } else {
     const tb=h("tbody"), rows=[]; let cum=0, invSoFar=0; const now=today();
     const order=new Map(s.rs.map((r,i)=>[r.id,i]));
@@ -4232,7 +4615,7 @@ async function setCoWork(row, v, sel){
 }
 function coWorkControl(r){
   const w=coWork(r), doneTxt="Work done"+(r.workStatus==="done" && r.workDoneDate? " · "+spShortD(r.workDoneDate) : "");
-  if(!S.canWrite || !r.id) return h("span",{class:"pill "+w[2],text: w[0]==="done"? doneTxt : w[1],title: r.workDoneDate? "Work done "+dShort(r.workDoneDate) : null});
+  if(!canDo("cos") || !r.id) return h("span",{class:"pill "+w[2],text: w[0]==="done"? doneTxt : w[1],title: r.workDoneDate? "Work done "+dShort(r.workDoneDate) : null});
   const sel=h("select",{class:"stsel "+w[2],"aria-label":"Work status of "+(r.no||"change order"),title: r.workDoneDate&&w[0]==="done"? "Work done "+dShort(r.workDoneDate) : null}, ...CO_WORK.map(([v,l])=>h("option",{value:v,text: v==="done"? doneTxt : l}))); sel.value=w[0];
   for(const ev of ["click","mousedown","keydown"]) sel.addEventListener(ev,e=>e.stopPropagation());
   sel.addEventListener("change",()=>setCoWork(r, sel.value, sel));
@@ -4274,7 +4657,7 @@ async function setCoStatus(row, status, sel){
   }catch(e){ if(sel) sel.value=row.status; toast("Couldn’t change the status."); }
 }
 function coPanel(p){
-  const rows=coRows(p.id), can=S.canWrite;
+  const rows=coRows(p.id), can=canDo("cos");
   const tot=st=>r2(rows.filter(r=>r.status===st).reduce((a,r)=>a+num(r.amount),0));
   const appr=r2(tot("approved")+tot("partial")+tot("paid")), pend=r2(tot("submitted")+tot("draft"));
   const lastReq=reqsFor(p.id).filter(r=>r.built).sort((a,b)=>num(a.appNo)-num(b.appNo)).pop();
@@ -4288,6 +4671,7 @@ function coPanel(p){
   if(!rows.length){ panel.append(h("div",{class:"empty"},h("p",{text:"Add each change order here when you send it to the client. Once it’s approved it can be added to a requisition. Work status is for tracking only."})));
     if(lastReq && (lastReq.cos||[]).length) panel.append(h("ul",{class:"vwarn conotes"},h("li",{text:"Requisition #"+lastReq.appNo+" already has "+plural(lastReq.cos.length,"change order line")+" ("+lastReq.cos.map(l=>l.item||l.desc).join(", ")+"). Add "+(lastReq.cos.length===1?"it":"them")+" here with “+ New change order” if you want to track "+(lastReq.cos.length===1?"it":"them")+"."})));
     return panel; }
+  for(const n of coAlertNotes(p.id)) panel.append(n);
   const tb=h("tbody");
   for(const r of rows){
     const stc=(CO_ST.find(x=>x[0]===stNorm(r.status))||CO_ST[0]);
@@ -4303,7 +4687,7 @@ function coPanel(p){
       h("td",{text:dShort(r.periodTo)}),
       h("td",{text:dShort(r.submitted)}),
       h("td",{class:"num strong",text:coMoney(num(r.amount))}),
-      h("td",null,stEl),
+      h("td",null,h("div",{class:"costcell"},stEl, r.id? coAppChip(coApp(r.id)) : null)),
       h("td",null,coWorkControl(r)),
       h("td",null, r.built? h("span",{style:"display:inline-flex;gap:6px;align-items:center"},
           h("button",{type:"button",class:"file",text:"Change order",title:"View the change order PDF",onclick:e=>{ e.stopPropagation(); openFile({name:coPdfName(coDataFromRecord(r)), label:"Change order", live:true, make:()=>makeCoPdf(coDataFromRecord(r)), kind:"Change order PDF"}); }}),
@@ -4519,12 +4903,177 @@ async function makeCoPdf(d,c){
   font("normal",8.5,GREY); T([co.name,[co.address1,co.address2].filter(Boolean).join(", "),co.phone,co.website].filter(Boolean).join("  |  "),W/2,H-28,{align:"center"});
   return doc.output("blob");
 }
+const coFeeLabel=f=>(f.name||"Fee").toUpperCase()+(f.mode==="amt"?"":" ("+num(f.value)+"%)");
+function coComplNew(d){ if(!d.complPrior) return ""; const t=new Date(d.complPrior+"T12:00:00"); if(isNaN(t)) return ""; t.setDate(t.getDate()+Math.round(num(d.days))); return t.toISOString().slice(0,10); }
+/* ---------- owner approval of change orders: a private link, a yes/no per line, then review ---------- */
+function coApps(coId){ return (S.coApps||[]).filter(a=>a.coId===coId).sort((a,b)=>String(b.sentAt||b.createdAt||"").localeCompare(String(a.sentAt||a.createdAt||""))); }
+function coApp(coId){ return coApps(coId)[0]||null; }
+function coAppLink(a){ if(!a || !a.token || !window.__appPlatform) return null; return location.origin+location.pathname.replace(/[^/]*$/,"")+"coapprove.html?t="+a.token; }
+const coDecided=a=> a && a.response && a.response.decisions? a.response.decisions : {};
+// what the owner sees: the change order as saved, frozen at sending time
+function coSnapshot(d){
+  const c=coCalc(d), co=company(), clean=x=>String(x==null?"":x).trim();
+  const items=d.items.map((it,i)=>({it,a:c.items[i]})).filter(({it,a})=>a!==0 || clean(it.desc)).map(({it,a})=>({id:it.id, csi: d.lineMode==="csi"? csiFmt(clean(it.csi)) : "", cat:clean(it.cat), desc:clean(it.desc), unit:clean(it.unit), qty:clean(it.qty), rate:clean(it.rate), amount:a}));
+  const logo=S.company&&S.company.logoData&&S.company.logoData.length<400000? S.company.logoData : "";
+  return { company:{name:co.name||"", address1:co.address1||"", address2:co.address2||"", phone:co.phone||"", website:co.website||"", logo},
+    no:clean(d.no), date:d.date||"", title:clean(d.title), projectName:clean(d.jobSite), projectNo:clean(d.projectNo), projectAddr:[clean(d.projAddr1),clean(d.projAddr2)].filter(Boolean),
+    owner:{name:clean(d.client.name), company:clean(d.client.company), street:clean(d.client.street), city:clean(d.client.city), phone:clean(d.client.phone)},
+    withArch:!!d.withArch, arch: d.withArch? {...d.arch} : null, contractNo:clean(d.contractNo), contractFor:clean(d.contractFor), contractDate:d.contractDate||"", reason:clean(d.reason), requestedBy:clean(d.requestedBy), scope:"",
+    docs:{...(d.docs||{})}, lineMode:d.lineMode==="csi"?"csi":"num", items,
+    fees:(d.fees||[]).filter(f=>clean(f.name)||clean(f.value)).map((f,i)=>({name:clean(f.name), mode:f.mode==="amt"?"amt":"pct", value:clean(f.value), label:coFeeLabel(f), amount:c.fees[(d.fees||[]).indexOf(f)]})),
+    subtotal:c.sub, total:c.total, orig:c.orig, prev:c.prev, revised:c.revised, days:Math.round(num(d.days)), complPrior:d.complPrior||"", complNew:coComplNew(d) };
+}
+function coAppChip(a){
+  if(!a) return null;
+  if(a.status==="sent") return h("span",{class:"pill st-submitted cochip",text:"Waiting for owner"});
+  if(a.status==="responded") return h("span",{class:"pill st-overdue cochip coalertchip",text:"Owner answered · review"});
+  if(a.status==="closed" && a.outcome==="accepted") return h("span",{class:"pill st-approved cochip",text:"Approved online"});
+  return null;
+}
+function coLinkDialog(a, d){
+  const link=coAppLink(a), cl=d.client||{};
+  const subj="Change order "+(d.no||"")+" for "+(d.jobSite||"your project")+" · approval";
+  const body=(cl.name? "Hi "+cl.name.split(" ")[0]+",\n\n" : "")+"Please review change order "+(d.no||"")+" for "+(d.jobSite||"the project")+". You can approve or decline each line here:\n\n"+(link||"")+"\n\nThank you,\n"+(company().name||"");
+  spDialog("Send this link to the owner", "Change order "+(d.no||"")+" · "+(d.jobSite||"")+(a.round>1? " · review "+a.round : ""),
+    [ link? h("div",null,
+        h("p",{text:"The owner opens it on their phone or computer, approves or declines each line, types their name and sends it back. No account needed. You’ll see their answer in the change order list."}),
+        h("div",{class:"palink"}, h("input",{id:"coLinkIn",readonly:true,value:link,"aria-label":"Owner approval link"}), h("button",{class:"btn primary",type:"button",text:"Copy link",onclick:()=>paCopy(link)})),
+        h("p",{class:"hint",style:"margin-top:8px",text:"The same link works for later reviews too: if you change the change order and send it again, the owner opens the same link."}))
+      : h("p",{text:"Owner approval links work in the online version of the app."})],
+    [ h("button",{class:"btn",type:"button",text:"Close",onclick:()=>$("spDlg").close()}),
+      link? h("a",{class:"btn primary",href:"mailto:?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(body),text:"Write an email"}) : null ]);
+}
+// send (or send again) the saved change order to the owner
+async function coSendOwner(btn){
+  const st=S.cob; if(!st || !db) return; const d=st.d;
+  const err=$("coApErr"); const say=t=>{ if(err) err.textContent=t; else toast(t); };
+  if(st.isNew || st.dirty){ say("Save the change order first, then send it."); return; }
+  if(!coVerify(d).ok){ say("Fix the totals before sending."); return; }
+  const snap=coSnapshot(d); if(!snap.items.length){ say("Add at least one line before sending."); return; }
+  const msg=$("coApMsg"), note=msg? String(msg.value||"").trim().slice(0,1500) : "";
+  const now=new Date().toISOString(), a=coApp(st.id);
+  if(btn) btn.disabled=true;
+  try{
+    let rec;
+    if(a && (a.status==="responded" || a.status==="sent")){
+      const prevDec= a.status==="responded"? coDecided(a) : (a.prevDecisions||{});
+      const u={ status:"sent", round: a.status==="responded"? num(a.round||1)+1 : num(a.round||1), snapshot:snap, note, prevDecisions:prevDec, sentAt:now, sentBy:S.myId, updatedAt:now,
+        responses: a.status==="responded"? [...(a.responses||[]).slice(-10), a.response] : (a.responses||[]), response:null,
+        history:[...(a.history||[]).slice(-40), {at:now, by:S.myId, status:"sent", note: a.status==="responded"? "Changed and sent to the owner again" : "Link updated"}] };
+      await db.doc("coApprovals/"+a.id).update(u); rec={...a,...u};
+    } else {
+      const ref=db.collection("coApprovals").doc();
+      rec={ projectId:d.projectId, coId:st.id, round:1, token:paToken(), status:"sent", snapshot:snap, note, prevDecisions:{}, sentAt:now, sentBy:S.myId, createdAt:now, createdBy:S.myId, updatedAt:now,
+        history:[{at:now, by:S.myId, status:"sent", note:"Sent to the owner for approval"}] };
+      await ref.set(rec); rec={id:ref.id,...rec};
+      if(!(S.coApps||[]).some(x=>x.id===ref.id)) (S.coApps=S.coApps||[]).push(rec);
+    }
+    // the change order itself is now with the client
+    if(!coIsAppr(d.status)){ const u={status:"submitted", submitted:d.submitted||today(), updatedAt:now, updatedBy:S.myId, approvalId:rec.id};
+      await db.doc("changeOrders/"+st.id).update(u); d.status="submitted"; d.submitted=u.submitted; if(st.prev) Object.assign(st.prev,u); }
+    S.coRevise=null; render(); coLinkDialog(rec, d);
+  }catch(e){ say("Couldn’t create the link. Check your connection and try again."); }
+  finally{ if(btn) btn.disabled=false; }
+}
+async function coStopLink(a){
+  try{ await db.doc("coApprovals/"+a.id).update({status:"stopped", updatedAt:new Date().toISOString(), history:[...(a.history||[]).slice(-40),{at:new Date().toISOString(), by:S.myId, status:"stopped", note:"Link stopped"}]}); toast("Link stopped. The owner can’t answer through it now."); }
+  catch(e){ toast("Couldn’t stop the link. Try again."); }
+}
+// "agree with the owner": keep only the lines the owner approved, as the owner saw them
+async function coAcceptOwner(a, btn){
+  const st=S.cob; if(!st) return; const d=st.d, r=a.response||{}, dec=coDecided(a), sn=a.snapshot||{};
+  const keep=(sn.items||[]).filter(it=>dec[it.id] && dec[it.id].ok);
+  if(!keep.length) return;
+  d.items=keep.map(si=>Object.assign({id:si.id, cat:si.cat||"", desc:si.desc||"", unit:si.unit||"", qty:si.qty||"", rate:si.rate||""}, si.csi? {csi:si.csi} : {}));
+  d.fees=(sn.fees||[]).map(f=>({id:nid(), name:f.name||"", mode:f.mode==="amt"?"amt":"pct", value:f.value==null?"":String(f.value)}));
+  const day=String(r.at||"").slice(0,10)||today();
+  d.status="approved"; d.approvedDate=day; if(!d.submitted) d.submitted=String(a.sentAt||"").slice(0,10)||day;
+  d.ownerSign={name:r.name||"", title:r.title||"", email:r.email||"", date:day, at:r.at||"", online:true, approvalId:a.id, round:num(a.round||1), approved:keep.length, lines:(sn.items||[]).length};
+  st.dirty=true; st.locked=false;
+  const ok=await saveCo(btn);
+  if(!ok) return;
+  try{ const now=new Date().toISOString(); await db.doc("coApprovals/"+a.id).update({status:"closed", outcome:"accepted", closedAt:now, updatedAt:now, history:[...(a.history||[]).slice(-40),{at:now, by:S.myId, status:"closed", note:"Saved with the "+keep.length+" owner-approved lines"}]}); }catch(e){}
+  toast("Change order "+(d.no||"")+" approved with the "+plural(keep.length,"line")+" the owner approved");
+}
+async function coRejectAll(a, btn){
+  const st=S.cob; if(!st) return; st.d.status="rejected"; st.dirty=true;
+  const ok=await saveCo(btn); if(!ok) return;
+  try{ const now=new Date().toISOString(); await db.doc("coApprovals/"+a.id).update({status:"closed", outcome:"rejected", closedAt:now, updatedAt:now}); }catch(e){}
+}
+// the owner approval panel at the top of the change order builder
+function coApprovalPanel(st){
+  const d=st.d, can=canDo("cos"), a=st.isNew? null : coApp(st.id);
+  const live=!!window.__appPlatform;
+  const ph=(sub,...kids)=>h("section",{class:"panel coap"+(a&&a.status==="responded"?" coap-alert":""),id:"coApproval"},h("div",{class:"ph"},h("h2",{text:"Owner approval"}),sub? h("span",{class:"sub",text:sub}) : null),h("div",{class:"pb"},...kids));
+  const msgBox=()=>h("div",{class:"f full"},h("label",{for:"coApMsg",text:"Message to the owner (optional)"}),h("textarea",{id:"coApMsg",rows:"2",placeholder:"e.g. Pricing for the kitchen changes we discussed on site. Please review by Friday."}));
+  const errP=h("p",{class:"err",id:"coApErr",role:"alert"});
+  if(!live) return ph(null,h("p",{class:"hint",style:"margin:0",text:"In the online version you can send this change order to the owner as a link. They approve or decline each line."}));
+  if(st.isNew) return ph(null,h("p",{class:"hint",style:"margin:0",text:"Save the change order, then send it to the owner as a link. They approve or decline each line, and their answer comes back here."}));
+  if(!a || a.status==="stopped" || (a.status==="closed" && a.outcome!=="accepted")){
+    if(coIsAppr(d.status)) return null;
+    return ph("They approve or decline each line", msgBox(),
+      h("div",{class:"actions"}, can? h("button",{class:"btn primary",type:"button",id:"coSend",text:"Send to owner for approval",onclick:e=>coSendOwner(e.currentTarget)}) : null), errP);
+  }
+  const link=coAppLink(a), when=a.sentAt? dShort(String(a.sentAt).slice(0,10)) : "";
+  if(a.status==="sent") return ph("Waiting for the owner"+(when? " · sent "+when : "")+(num(a.round)>1? " · review "+a.round : ""),
+    h("p",{class:"hint",style:"margin:0 0 10px",text:"If you change and save this change order before they answer, the link shows the new version."}),
+    h("div",{class:"actions"},
+      link? h("button",{class:"btn",type:"button",text:"Show link",onclick:()=>coLinkDialog(a,d)}) : null,
+      link? h("button",{class:"btn",type:"button",text:"Copy link",onclick:()=>paCopy(link)}) : null,
+      can? h("button",{class:"btn",type:"button",text:"Stop link",onclick:()=>confirmBox({title:"Stop the owner’s link?",text:"The owner won’t be able to answer through it. You can send the change order again later.",ok:"Stop link",onOk:()=>coStopLink(a)})}) : null), errP);
+  if(a.status==="closed" && a.outcome==="accepted"){ const r=a.response||{};
+    return ph("Approved online", h("p",{style:"margin:0",text:(r.name||"The owner")+(r.title? ", "+r.title : "")+" approved "+(r.approved||0)+" of "+plural(r.lines||0,"line")+" on "+dShort(String(r.at||"").slice(0,10))+". The change order was saved with the approved lines."})); }
+  // the owner answered: show it line by line, then the two choices
+  const r=a.response||{}, dec=coDecided(a), sn=a.snapshot||{}, items=sn.items||[];
+  const yes=items.filter(it=>dec[it.id]&&dec[it.id].ok), no=items.filter(it=>!(dec[it.id]&&dec[it.id].ok));
+  const cur=new Map(d.items.map(it=>[it.id,it]));
+  const changed=it=>{ const x=cur.get(it.id); return !x || ["desc","qty","rate","unit","cat"].some(k=>String(x[k]||"").trim()!==String(it[k]||"").trim()); };
+  const yesTot=(()=>{ const dd={items:yes.map(si=>({...si})), fees:(sn.fees||[]).map(f=>({...f}))}; return invCalc(dd).total; })();
+  const tb=h("tbody",null,...items.map((it,i)=>{ const x=dec[it.id]||{}; return h("tr",{class:x.ok? "" : "coap-no"},
+    h("td",{text:String(i+1)}), h("td",null,h("span",{text:it.desc||"—"}), x.note? h("span",{class:"small coapnote",text:"Owner: “"+x.note+"”"}) : null, S.coRevise===st.id && changed(it)? h("span",{class:"small",text:"Changed since"}) : null),
+    h("td",{class:"num",text:coMoney(it.amount)}), h("td",null,h("span",{class:"pill "+(x.ok?"coyes":"cono"),text:x.ok?"Approved":"Declined"}))); }));
+  const revising=S.coRevise===st.id;
+  return ph((r.name||"The owner")+(r.title? ", "+r.title : "")+" answered on "+dShort(String(r.at||"").slice(0,10)),
+    h("div",{class:"coapsum"},
+      h("div",null,h("span",{text:"Approved"}),h("b",{text:yes.length+" of "+items.length+" lines"})),
+      h("div",null,h("span",{text:"Approved total"}),h("b",{text:coMoney(yesTot)})),
+      h("div",null,h("span",{text:"Total sent"}),h("b",{text:coMoney(sn.total)}))),
+    r.note? h("div",{class:"notice",style:"margin:10px 0"},h("b",{text:"Owner’s note: "}),h("span",{text:r.note})) : null,
+    h("div",{class:"tscroll"},h("table",{class:"coaptbl"},h("thead",null,h("tr",null,h("th",{text:"#"}),h("th",{text:"Line"}),h("th",{class:"num",text:"Amount"}),h("th",{text:"Owner"}))),tb)),
+    can? (revising?
+      h("div",null,h("p",{class:"hint",style:"margin:10px 0",text:"Change the lines below (declined ones are marked), save, then send it to the owner again. They’ll review every line."}),
+        msgBox(),
+        h("div",{class:"actions"},
+          h("button",{class:"btn",type:"button",text:"Cancel",onclick:()=>{ S.coRevise=null; S.cob=null; render(); }}),
+          h("button",{class:"btn primary",type:"button",id:"coSendAgain",text:"Send to owner again",onclick:e=>coSendOwner(e.currentTarget)})))
+      : h("div",{class:"actions coapacts"},
+          yes.length? h("button",{class:"btn primary",type:"button",id:"coAccept",text: no.length? "Save with the "+plural(yes.length,"approved line") : "Save as approved",
+            onclick:e=>{ const b=e.currentTarget; confirmBox({title: no.length? "Save "+(d.no||"the change order")+" with only the owner-approved lines?" : "Save "+(d.no||"the change order")+" as approved?",
+              text:(no.length? "These declined lines will be removed: "+no.map(x=>x.desc||"line").join("; ")+". " : "")+"The change order becomes Approved with a total of "+coMoney(yesTot)+", recorded as approved online by "+(r.name||"the owner")+".",
+              ok: no.length? "Save approved lines" : "Save as approved", onOk:()=>coAcceptOwner(a,b)}); }}) : null,
+          h("button",{class:"btn",type:"button",id:"coRevise",text:"Change lines and send again",onclick:()=>{ S.coRevise=st.id; st.locked=false; render(); setTimeout(()=>{ const el=$("coApproval"); if(el) el.scrollIntoView({block:"start"}); },0); }}),
+          !yes.length? h("button",{class:"btn delbtn",type:"button",text:"Mark as rejected",onclick:e=>{ const b=e.currentTarget; confirmBox({title:"Mark "+(d.no||"the change order")+" as rejected?",text:"The owner declined every line.",ok:"Mark rejected",onOk:()=>coRejectAll(a,b)}); }}) : null)) : null,
+    errP);
+}
+// the alert at the top of a project's change order list
+function coAlertNotes(pid){
+  const due=(S.coApps||[]).filter(a=>a.projectId===pid && a.status==="responded");
+  const seen=new Set(), out=[];
+  for(const a of due){ if(seen.has(a.coId)) continue; seen.add(a.coId); if(coApp(a.coId)!==a) continue;
+    const co=S.changeOrders.find(c=>c.id===a.coId); if(!co) continue; const r=a.response||{};
+    out.push(h("div",{class:"coalert",role:"status"},
+      h("span",{class:"coalert-dot","aria-hidden":"true"}),
+      h("span",null,h("b",{text:"See the owner’s approval: "}),(co.no||"Change order")+" · "+(r.name||"the owner")+" approved "+(r.approved||0)+" of "+plural(r.lines||0,"line")+"."),
+      h("button",{class:"btn primary chipbtn",type:"button",text:"Review",onclick:()=>{ S.cob=null; setTab("co-"+co.id); }}))); }
+  return out;
+}
+
 function coPdfName(d){ const p=proj(d.projectId); const nm=String((p&&p.name)||"").replace(/[\\/:*?"<>|]+/g," ").trim().slice(0,60); return "Change Order "+String(d.no||"").trim()+(nm? " - "+nm : "")+".pdf"; }
 function renderCoBuilder(main, existingId, pid){
   const key= existingId? "co-"+existingId : "newco-"+pid;
   const st=coState(key, existingId, pid);
   if(!st){ main.append(gatePanel("Change order not found","It may have been deleted.")); return; }
-  const d=st.d, p=proj(d.projectId), can=S.canWrite && !st.locked;
+  const d=st.d, p=proj(d.projectId), can=canDo("cos") && !st.locked;
   if(!p){ main.append(gatePanel("Project not found","This change order’s project was deleted.")); return; }
   ubInit(st);
   const mark=()=>{ st.dirty=true; ubCheck(st,"cob"); };
@@ -4544,12 +5093,13 @@ function renderCoBuilder(main, existingId, pid){
       h("button",{class:"btn",type:"button",text:"Back to project",onclick:()=>{ S.cob=null; setTab(p.id); }}),
       downloadsApi? h("button",{class:"btn",type:"button",text:"Download PDF",onclick:e=>downloadCoPdf(e.currentTarget)}) : null,
       h("button",{class:"btn",type:"button",text:"Print",onclick:async e=>{ const b=e.currentTarget; if(coBlocked(st)) return; b.disabled=true; try{ await printPdf(()=>makeCoPdf(st.d), coPdfName(st.d).replace(/\.pdf$/i,"")); } finally{ b.disabled=false; } }}),
-      S.canWrite && st.locked? h("button",{class:"btn primary",type:"button",text:"Edit change order",onclick:()=>{ st.locked=false; render(); }}) : null,
+      canDo("cos") && st.locked? h("button",{class:"btn primary",type:"button",text:"Edit change order",onclick:()=>{ st.locked=false; render(); }}) : null,
       can? ubButtons(st,"cob") : null,
       can? h("button",{class:"btn primary",type:"button",text: st.isNew? "Save change order" : "Save changes",onclick:e=>saveCo(e.currentTarget)}) : null)));
-  if(st.locked && S.canWrite) main.append(h("div",{class:"notice rqlocknote"},h("b",{text:"Approved change order. "}),h("span",{text:"It’s locked so the signed version doesn’t change by accident. Click "}),h("b",{text:"Edit change order"}),h("span",{text:" to make changes. The status can still be changed from the change order list."})));
+  if(st.locked && canDo("cos")) main.append(h("div",{class:"notice rqlocknote"},h("b",{text:"Approved change order. "}),h("span",{text:"It’s locked so the signed version doesn’t change by accident. Click "}),h("b",{text:"Edit change order"}),h("span",{text:" to make changes. The status can still be changed from the change order list."})));
 
   const left=h("div",{class:"invcol"});
+  { const ap=coApprovalPanel(st); if(ap) left.append(ap); }
   const dupe=()=>coRows(d.projectId).some(r=>r.saved && r.id!==st.id && coKey(r.no)===coKey(d.no));
   const noHint=h("span",{class:"hint",id:"cobNoHint",text: dupe()? "This number is already used on this project." : ""});
   left.append(sec("Change order",null,h("div",{class:"fields"},
@@ -4581,12 +5131,15 @@ function renderCoBuilder(main, existingId, pid){
   const rows=h("div",{class:"irows"});
   const mini=(id,label,el)=>h("label",{class:"mini",for:id},h("span",{text:label}),el);
   const csiOn=d.lineMode==="csi";
+  const ownDec= S.coRevise===st.id? coDecided(coApp(st.id)) : null;
   d.items.forEach((it,i)=>{
+    const od= ownDec && ownDec[it.id] && !ownDec[it.id].ok? ownDec[it.id] : null;
     const csiCell= !csiOn? null : (()=>{
       const el= st.locked? h("span",{id:"cbcsi-"+it.id,class:"lockval",text:it.csi||"—"})
         : csiPicker("cbcsi-"+it.id, it.csi, v=>{ it.csi=v; mark(); coRefresh(); }, x=>{ it.cat=x.t; const ce=$("cbc-"+it.id); if(ce) ce.value=x.t; mark(); coRefresh(); }, {disabled:!can, "aria-label":"CSI code, line "+(i+1)});
       return h("div",{class:"csicell"}, h("label",{class:"mini",for:"cbcsi-"+it.id}, h("span",{text:"CSI code"}), el)); })();
-    rows.append(h("div",{class:"irow"+(csiOn?" csi":"")},
+    rows.append(h("div",{class:"irow"+(csiOn?" csi":"")+(od?" declined":"")},
+      od? h("div",{class:"ownernote",text:"Owner declined this line"+(od.note? ": “"+od.note+"”" : "")}) : null,
       csiCell,
       mini("cbc-"+it.id,"Category",inp("cbc-"+it.id,it.cat,v=>{ it.cat=v; },csiOn? {placeholder:"Filled from the CSI code"} : {list:"coCatList",placeholder:"Labor"})),
       h("div",{class:"desc"},mini("cbd-"+it.id,(csiOn? "Description of change" : "Line "+(i+1)+" · description of change"),inp("cbd-"+it.id,it.desc,v=>{ it.desc=v; },{placeholder:"Describe the change"}))),
@@ -4635,10 +5188,10 @@ function renderCoBuilder(main, existingId, pid){
 
 
   // status
-  const ssel=h("select",{id:"cobStatus",disabled:!S.canWrite}, ...CO_ST.map(([v,l])=>h("option",{value:v,text:l}))); ssel.value=stNorm(d.status);
+  const ssel=h("select",{id:"cobStatus",disabled:!canDo("cos")}, ...CO_ST.map(([v,l])=>h("option",{value:v,text:l}))); ssel.value=stNorm(d.status);
   ssel.addEventListener("change",()=>{ d.status=ssel.value; if(coIsAppr(d.status) && !d.approvedDate) d.approvedDate=today(); if(d.status==="submitted" && !d.submitted) d.submitted=today(); mark(); if(!coIsAppr(d.status)) st.locked=false; render(); });
   const files=(d.files||[]).filter(f=>f.id && f.kind!=="Change order PDF");
-  const up=S.canWrite && assets? (()=>{ const fi=h("input",{type:"file",id:"cobFile",accept:"application/pdf,image/png,image/jpeg",hidden:true});
+  const up=canDo("cos") && assets? (()=>{ const fi=h("input",{type:"file",id:"cobFile",accept:"application/pdf,image/png,image/jpeg",hidden:true});
     fi.addEventListener("change",async()=>{ const f=fi.files[0]; fi.value=""; if(!f) return; const err=$("cobErr");
       const type=f.type||(/\.pdf$/i.test(f.name)?"application/pdf":""); if(!/^(application\/pdf|image\/(png|jpeg))$/.test(type)){ err.textContent=f.name+" isn’t a PDF or image."; return; }
       if(f.size>20*1048576){ err.textContent=f.name+" is over 20 MB."; return; }
@@ -4650,7 +5203,7 @@ function renderCoBuilder(main, existingId, pid){
     fld("Status","cobStatus",ssel),
     fld("Submitted to client","cobSubmitted",inp("cobSubmitted",d.submitted,v=>{ d.submitted=v; },{type:"date"})),
     fld("Approved on","cobApproved",inp("cobApproved",d.approvedDate,v=>{ d.approvedDate=v; },{type:"date"})),
-    (()=>{ const w=h("select",{id:"cobWork",disabled:!S.canWrite}, ...CO_WORK.map(([v,l])=>h("option",{value:v,text:l}))); w.value=coWork(d)[0];
+    (()=>{ const w=h("select",{id:"cobWork",disabled:!canDo("cos")}, ...CO_WORK.map(([v,l])=>h("option",{value:v,text:l}))); w.value=coWork(d)[0];
       w.addEventListener("change",async()=>{ d.workStatus=w.value; if(w.value==="done" && !d.workDoneDate) d.workDoneDate=today(); if(w.value!=="done") d.workDoneDate="";
         if(st.locked && !st.isNew){ try{ await db.doc("changeOrders/"+st.id).update({workStatus:d.workStatus, workDoneDate:d.workDoneDate||null, updatedAt:new Date().toISOString(), updatedBy:S.myId}); toast("Work status saved"); }catch(e){ toast("Couldn’t save. Try again."); } }
         else { mark(); const dt=$("cobDirty"); if(dt) dt.hidden=false; } });
@@ -4658,13 +5211,13 @@ function renderCoBuilder(main, existingId, pid){
     h("div",{class:"f"},h("label",{for:"cobNote",text:"Note (not printed)"}),(()=>{ if(st.locked) return h("span",{id:"cobNote",class:"lockval pre",text:d.note||"—"}); const t=h("textarea",{id:"cobNote",rows:"2",disabled:!can,placeholder:"Who approved it, signed and notarized, reference numbers…"}); t.value=d.note||""; t.addEventListener("input",()=>{ d.note=t.value; mark(); const dt=$("cobDirty"); if(dt) dt.hidden=false; }); return t; })()),
     files.length? h("div",{class:"prow"},h("span",{class:"meta",text:"Attached:"}), ...files.map(f=>h("button",{type:"button",class:"file",text:f.name||f.kind,onclick:()=>openFile(f)}))) : null,
     h("p",{class:"err",id:"cobErr",role:"alert"}),
-    S.canWrite? h("div",{class:"actions"},
+    canDo("cos")? h("div",{class:"actions"},
       up,
       st.dirty && !st.isNew? h("button",{class:"btn",type:"button",text:"Discard changes",onclick:()=>{ S.cob=null; render(); }}) : null,
       h("span",{style:"flex:1"}),
       h("button",{class:"btn primary",type:"button",text: st.isNew? "Save change order" : "Save changes",onclick:e=>saveCo(e.currentTarget)})) : null));
 
-  if(S.canWrite && !st.isNew){
+  if(canDo("cos") && !st.isNew){
     const billedOn=(coRows(d.projectId).find(r=>r.id===st.id)||{}).billed;
     left.append(h("section",{class:"panel delpanel"},h("div",{class:"pb"},
       h("div",{class:"delrow"},
@@ -4688,8 +5241,8 @@ function coValidate(d){
 }
 async function saveCo(btn){
   const st=S.cob; if(!st || !db) return; const d=st.d; const err=$("cobErr"); if(err) err.textContent="";
-  const v=coValidate(d); if(v){ if(err) err.textContent=v[1]; else toast(v[1]); const el=$(v[0]); if(el){ el.focus(); el.scrollIntoView({block:"center"}); } return; }
-  if(coBlocked(st)) return;
+  const v=coValidate(d); if(v){ if(err) err.textContent=v[1]; else toast(v[1]); const el=$(v[0]); if(el){ el.focus(); el.scrollIntoView({block:"center"}); } return false; }
+  if(coBlocked(st)) return false;
   const c=coCalc(d), now=new Date().toISOString(), clean=x=>String(x==null?"":x).trim();
   if(btn) btn.disabled=true;
   const items=d.items.filter((it,i)=>c.items[i]!==0 || clean(it.desc)).map(it=>Object.assign({id:it.id, cat:clean(it.cat), desc:clean(it.desc), unit:clean(it.unit), qty:clean(it.qty), rate:clean(it.rate)}, clean(it.csi)? {csi:csiFmt(clean(it.csi)).slice(0,30)} : {}));
@@ -4718,13 +5271,16 @@ async function saveCo(btn){
     st.isNew=false; st.dirty=false; st.prev=data; d.files=files; st.key="co-"+st.id; st.locked= coIsAppr(data.status);
     setTab("co-"+st.id);
     const e2=$("cobErr"); if(e2) e2.textContent=pdfNote||"";
-    toast("Change order "+data.no+" saved"+(pdfNote? "" : " with its PDF"));
-  }catch(ex){ const e3=$("cobErr"); if(e3) e3.textContent= ex&&ex.code==="quota_exceeded"? "The billing log is full." : "Couldn’t save. Check your connection and try again."; }
+    let linkNote="";
+    const ap=coApp(st.id); if(ap && ap.status==="sent"){ try{ await db.doc("coApprovals/"+ap.id).update({snapshot:coSnapshot(d), updatedAt:now}); linkNote=" · the owner’s link shows this version"; }catch(e){} }
+    toast("Change order "+data.no+" saved"+(pdfNote? "" : " with its PDF")+linkNote);
+    return true;
+  }catch(ex){ const e3=$("cobErr"); if(e3) e3.textContent= ex&&ex.code==="quota_exceeded"? "The billing log is full." : "Couldn’t save. Check your connection and try again."; return false; }
   finally{ if(btn) btn.disabled=false; }
 }
 async function deleteCo(btn){
   const st=S.cob; if(!st) return; if(btn) btn.disabled=true;
-  try{ const no=st.d.no; await db.doc("changeOrders/"+st.id).delete(); if(assets) for(const f of (st.d.files||[])) if(f.id){ try{ await assets.delete(f.id); }catch(e){} }
+  try{ const no=st.d.no; await db.doc("changeOrders/"+st.id).delete(); for(const a of coApps(st.id)){ try{ await db.doc("coApprovals/"+a.id).delete(); }catch(e){} } if(assets) for(const f of (st.d.files||[])) if(f.id){ try{ await assets.delete(f.id); }catch(e){} }
     const pid=st.d.projectId; S.cob=null; setTab(proj(pid)? pid : "overview"); toast("Change order "+(no||"")+" deleted"); }
   catch(e){ if(btn) btn.disabled=false; const err=$("cobErr"); if(err) err.textContent="Couldn’t delete. Try again."; toast("Couldn’t delete. Try again."); }
 }
@@ -4987,7 +5543,7 @@ function spDeletePayFile(x, kind, f, after){
     catch(e){ toast("Couldn’t delete. Try again."); } }});
 }
 function spInvoiceCell(y){
-  const can=S.canWrite && assets, fs=Array.isArray(y.invoiceFiles)? y.invoiceFiles : [];
+  const can=canDo("subPay") && assets, fs=Array.isArray(y.invoiceFiles)? y.invoiceFiles : [];
   // once something is attached, lists show only the green sign and the file; more files are added in the payment editor
   return h("span",{class:"spwv"}, fs.length? spChip("✓ Attached","st-paid") : null,
     ...fs.map((f,i)=>h("button",{type:"button",class:"file",text: fs.length>1? "Invoice "+(i+1) : "Invoice",title:f.name||"Invoice",onclick:e=>{ e.stopPropagation(); openFile(f); }})),
@@ -4995,14 +5551,14 @@ function spInvoiceCell(y){
 }
 // lien waiver cell used in every payment list: status, attached files and an Attach button
 function spWaiverCell(y){
-  const can=S.canWrite && assets, fs=Array.isArray(y.waiverFiles)? y.waiverFiles : [];
+  const can=canDo("subPay") && assets, fs=Array.isArray(y.waiverFiles)? y.waiverFiles : [];
   const chip= spIsPaid(y)? (fs.length? spChip("✓ Attached","st-paid") : y.waiver==="received"? spChip("✓ Received","st-paid") : y.waiver==="na"? spChip("Not needed","st-draft") : spChip("Missing","st-revise")) : (fs.length? spChip("✓ Attached","st-paid") : null);
   return h("span",{class:"spwv"}, chip, spWaiverFilesBtn(y), can && !fs.length? h("button",{class:"btn chipbtn spattach",type:"button",text:"Attach",title:"Attach a lien waiver to this payment",onclick:e=>{ e.stopPropagation(); spUploadWaiver(y); }}) : (fs.length||chip? null : h("span",{class:"none",text:"—"})));
 }
 function spStatusControl(x){
   const s=spPayState(x);
   const tag= s.tag? h("span",{class:"pill "+s.tagCls+" sptag",text:s.tag,title: s.k==="hold"? "The previous payment’s lien waiver is missing" : s.k==="wait"? "The client hasn’t paid for this work yet" : (x.reason||"")}) : null;
-  if(!S.canWrite) return h("span",{class:"spst"},spChip(s.label, s.cls), tag);
+  if(!canDo("subPay")) return h("span",{class:"spst"},spChip(s.label, s.cls), tag);
   const sel=h("select",{class:"stsel "+s.cls,"aria-label":"Payment status"}, ...SP_ST_ALL.map(([v,l])=>h("option",{value:v,text:l})));
   sel.value=s.st;
   for(const ev of ["click","mousedown","keydown"]) sel.addEventListener(ev,e=>e.stopPropagation());
@@ -5020,7 +5576,7 @@ function spMarkPaid(x, partial){
     spDialog("Can’t mark this payment paid yet", (sub?sub.name:"Subcontractor")+" · "+(p?p.name:""),
       [h("div",{class:"spbad"},h("b",{text:"The lien waiver for the previous payment hasn’t been uploaded. "}),h("span",{text:"Payments wait until it’s in."})),
        h("div",{class:"tscroll"},h("table",null,h("thead",null,h("tr",null,h("th",{text:"Paid"}),h("th",{class:"num",text:"Amount"}),h("th",{text:"Lien waiver"}),h("th"))),
-         h("tbody",null,...s.missing.map(y=>h("tr",null,h("td",{text:dShort(spPayDate(y))}),h("td",{class:"num",text:fmtN(num(y.amount))}),h("td",null,spChip("Missing","st-revise")),h("td",null, S.canWrite? h("button",{class:"btn chipbtn",type:"button",text:"Upload waiver",onclick:()=>{ $("spDlg").close(); spUploadWaiver(y); }}) : null))))))],
+         h("tbody",null,...s.missing.map(y=>h("tr",null,h("td",{text:dShort(spPayDate(y))}),h("td",{class:"num",text:fmtN(num(y.amount))}),h("td",null,spChip("Missing","st-revise")),h("td",null, canDo("subPay")? h("button",{class:"btn chipbtn",type:"button",text:"Upload waiver",onclick:()=>{ $("spDlg").close(); spUploadWaiver(y); }}) : null))))))],
       [h("button",{class:"btn",type:"button",text:"Close",onclick:()=>$("spDlg").close()})]);
     return;
   }
@@ -5061,7 +5617,7 @@ async function spSaveAssign(p, changes){
 }
 /* schedule (or record) a payment to one subcontractor on one project */
 function spSchedule(p, gkey, edit){
-  if(!S.canWrite) return;
+  if(!canDo("subPay")) return;
   const M=spModel(p); let g=gkey? M.groups.get(gkey) : null;
   if(edit){ g=[...M.groups.values()].find(x=>x.sub && x.sub.id===edit.subId) || g; }
   const pickable=[...M.subG, ...M.ownG];
@@ -5088,11 +5644,11 @@ function spSchedule(p, gkey, edit){
     const filesBox=h("div",{class:"spfiles",id:"spFilesBox"});
     const drawFiles=()=>{ if(!edit) return; const cur=S.subPays.find(y=>y.id===edit.id)||edit;
       const block=(title,kind,files,attach)=>h("div",{class:"spfblock"},
-        h("div",{class:"spfhead"},h("b",{text:title}), S.canWrite&&assets? h("button",{class:"btn chipbtn spattach",type:"button",text:"+ Attach",onclick:()=>attach(cur,()=>setTimeout(drawFiles,50))}) : null),
+        h("div",{class:"spfhead"},h("b",{text:title}), canDo("subPay")&&assets? h("button",{class:"btn chipbtn spattach",type:"button",text:"+ Attach",onclick:()=>attach(cur,()=>setTimeout(drawFiles,50))}) : null),
         files.length? h("div",{class:"spflist"}, ...files.map(f=>h("div",{class:"spfrow"},
           h("button",{type:"button",class:"file",text:f.name||title,title:"Open",onclick:()=>openFile(f)}),
           h("span",{class:"hint",text: f.at? dShort(String(f.at).slice(0,10)) : ""}),
-          S.canWrite? h("button",{type:"button",class:"spfdel","aria-label":"Delete "+(f.name||title),title:"Delete",text:"×",onclick:()=>spDeletePayFile(cur, kind, f, ()=>setTimeout(drawFiles,50))}) : null)))
+          canDo("subPay")? h("button",{type:"button",class:"spfdel","aria-label":"Delete "+(f.name||title),title:"Delete",text:"×",onclick:()=>spDeletePayFile(cur, kind, f, ()=>setTimeout(drawFiles,50))}) : null)))
         : h("p",{class:"hint",style:"margin:0",text:"Nothing attached yet."}));
       filesBox.replaceChildren(
         block("Subcontractor invoice","invoice",Array.isArray(cur.invoiceFiles)? cur.invoiceFiles : [],spUploadInvoice),
@@ -5189,7 +5745,7 @@ function spSchedule(p, gkey, edit){
 
 /* ---------- project → Subcontractors tab ---------- */
 function spProjectView(main, p){
-  const M=spModel(p), T=M.T, can=S.canWrite;
+  const M=spModel(p), T=M.T, can=canDo("subPay");
   if(S.spEdit===p.id){ spAssignView(main, p, M); return; }
   const unsplit=M.paidReqs.filter(x=>!x.r.split);
   if(can && unsplit.length && (M.subG.length||M.ownG.length)) for(const x of unsplit.slice(-2)) main.append(h("div",{class:"notice spnote"},
@@ -5235,7 +5791,7 @@ function spProjectView(main, p){
           h("tr",{class:"sptot grand"},h("td",{text:"Company share"}),h("td"),h("td",{class:"num",text:fmtN(T.company)}))))))));
 }
 function spGroupTable(title, sub, groups, M, p, acts){
-  const can=S.canWrite;
+  const can=canDo("subPay");
   const tb=h("tbody");
   if(!groups.length) tb.append(h("tr",null,h("td",{colspan:"9",class:"none",style:"white-space:normal",text:"No lines here yet. Click “Assign subs & contracts” to choose who does each line."})));
   S.spIdle=S.spIdle||{}; const ik=p.id+"|"+title, showIdle=!!S.spIdle[ik] || !!M.ledger;
@@ -5301,7 +5857,7 @@ function spAssignView(main, p, M){
 }
 /* projects without line items: commitments + a check on the whole project */
 function spLedgerView(main, p, M){
-  const s=stats(p), can=S.canWrite;
+  const s=stats(p), can=canDo("subPay");
   const paid=r2(M.pays.reduce((a,x)=>a+spPaidAmt(x),0)), sched=r2(M.pays.reduce((a,x)=>a+spOpenAmt(x),0));
   const commits=M.subG, contr=r2(commits.reduce((a,g)=>a+(g.contract||0),0));
   const big=(k,v,sub,cls)=>h("div",{class:"sbig"+(cls?" "+cls:"")},h("span",{class:"k",text:k}),h("b",{class:"v",text:v}),sub? h("span",{class:"s",text:sub}):null);
@@ -5346,7 +5902,7 @@ function renderSplit(main, rid){
   const head=h("div",{class:"phead"},
     h("div",{class:"ptitle"},h("span",{class:"meta",text:"Client payment received · split it"}),h("h1",{text:spM(pr.amount)+" from "+(p.client||"the client")}),h("span",{class:"meta"},h("b",{text:p.name}),"  ·  Application #"+r.appNo+(r.status==="paid"? " · paid in full" : " · partly paid"))),
     h("div",{class:"actions"},h("button",{class:"btn",type:"button",text:"Back to project",onclick:()=>{ S.split=null; setTab(p.id); }}),
-      S.canWrite? h("button",{class:"btn primary",type:"button",id:"spSplitGo",text:"Create payment requests",onclick:e=>go(e.currentTarget)}) : null));
+      canDo("subPay")? h("button",{class:"btn primary",type:"button",id:"spSplitGo",text:"Create payment requests",onclick:e=>go(e.currentTarget)}) : null));
   main.append(head);
   const big=(k,v,s,cls)=>h("div",{class:"sbig"+(cls?" "+cls:"")},h("span",{class:"k",text:k}),h("b",{class:"v",text:v}),s? h("span",{class:"s",text:s}):null);
   const kpiTo=h("b",{class:"v",id:"spToSched"});
@@ -5595,7 +6151,7 @@ function cfDrill(M, rowKey, week, group){
 
 /* money in / out you add by hand: payroll, rent, loans… */
 function cfItemDialog(id, dir0){
-  if(!S.canWrite) return;
+  if(!canDo("cashflow")) return;
   const ci=id? (S.cashItems||[]).find(x=>x.id===id) : null; if(id && !ci) return;
   const st={dir: ci? (ci.dir==="in"?"in":"out") : (dir0||"out")};
   const draw=()=>{
@@ -5606,7 +6162,7 @@ function cfItemDialog(id, dir0){
     const fq=h("select",{id:"cfiFreq"}, ...CF_FREQ.map(([v,l])=>h("option",{value:v,text:l}))); fq.value= ci&&ci.freq||"once";
     const dt=h("input",{id:"cfiDate",type:"date",value: ci&&ci.date||today()});
     const en=h("input",{id:"cfiEnd",type:"date",value: ci&&ci.end||""});
-    const pj=h("select",{id:"cfiProj"}, h("option",{value:"",text:"Company-wide"}), ...[...S.projects].filter(p=>p.status!=="complete"||(ci&&ci.projectId===p.id)).sort((a,b)=>String(a.name).localeCompare(String(b.name))).map(p=>h("option",{value:p.id,text:p.name}))); pj.value= ci&&ci.projectId||"";
+    const pj=h("select",{id:"cfiProj"}, seesAll()? h("option",{value:"",text:"Company-wide"}) : null, ...[...S.projects].filter(p=>p.status!=="complete"||(ci&&ci.projectId===p.id)).sort((a,b)=>String(a.name).localeCompare(String(b.name))).map(p=>h("option",{value:p.id,text:p.name}))); pj.value= ci&&ci.projectId||"";
     const nt=h("input",{id:"cfiNote",value: ci&&ci.note||"",placeholder:"Optional"});
     const endF=h("div",{class:"f",hidden: fq.value==="once"},h("label",{for:"cfiEnd",text:"Ends (optional)"}),en);
     fq.addEventListener("change",()=>{ endF.hidden= fq.value==="once"; $("cfiDateL").textContent= fq.value==="once"? "Date" : "First date"; });
@@ -5659,12 +6215,12 @@ async function cfExcel(M, btn){
 }
 
 function renderCash(main){
-  const can=S.canWrite, conf=cfConf(), sc=cfScn(), M=cfModel();
+  const canItems=canDo("cashflow"), can=canItems && seesAll(), conf=cfConf(), sc=cfScn(), M=cfModel();
   main.append(h("div",{class:"phead"},
     h("div",{class:"ptitle"},h("h1",{text:"Cash flow forecast"}),h("span",{class:"meta",text:"13 weeks · "+dShort(M.weeks[0].start)+" – "+dShort(M.until)+" · from your requisitions, invoices, sub payments and the items you add"})),
     h("div",{class:"actions"},
       downloadsApi? h("button",{class:"btn",type:"button",text:"Download Excel",onclick:e=>cfExcel(M,e.currentTarget)}) : null,
-      can? h("button",{class:"btn primary",type:"button",text:"+ Cash item",onclick:()=>cfItemDialog(null)}) : null)));
+      canItems? h("button",{class:"btn primary",type:"button",text:"+ Cash item",onclick:()=>cfItemDialog(null)}) : null)));
   // starting point
   const money0=(id,val,key,ph)=>{ if(!can) return h("b",{id,text:cfM(val)}); const el=h("input",{id,inputmode:"decimal",value: val? fmtN(val) : "",placeholder:ph||"0.00"});
     el.addEventListener("change",()=>{ const v=r2(num(el.value)); const patch={[key]:v}; if(key==="opening") patch.openingDate=($("cfOpenD")&&$("cfOpenD").value)||today(); cfSave(patch); }); return el; };
@@ -5676,7 +6232,7 @@ function renderCash(main){
     h("div",{class:"f"},h("label",{for:"cfOpenD",text:"As of"}),od),
     h("div",{class:"f"},h("label",{for:"cfBuf",text:"Minimum cash buffer ($)"}),money0("cfBuf",conf.buffer,"buffer")),
     h("div",{class:"f"},h("label",{for:"cfLag",text:"Pay subs (days after client pays)"}),lagIn)),
-    !conf.opening && !conf.openingDate? h("p",{class:"hint",style:"margin:0",text:"Start by entering today’s bank balance. Everything else comes from billing, sub payments and the cash items you add."})
+    !seesAll()? h("p",{class:"hint",style:"margin:0",text:"Showing your projects only. The company’s bank balance and company-wide items aren’t included."}) : !conf.opening && !conf.openingDate? h("p",{class:"hint",style:"margin:0",text:"Start by entering today’s bank balance. Everything else comes from billing, sub payments and the cash items you add."})
       : stale? h("p",{class:"hint",style:"margin:0;color:var(--danger)",text:"The bank balance is from "+dShort(conf.openingDate)+". Update it each week so the forecast starts from real cash."}) : null)));
   // KPIs
   const big=(k,v,s,cls)=>h("div",{class:"sbig"+(cls?" "+cls:"")},h("span",{class:"k",text:k}),h("b",{class:"v",text:v}),s? h("span",{class:"s",text:s}):null);
@@ -5932,7 +6488,7 @@ function psFromClaude(o){ o=o&&typeof o==="object"? o : {};
   return {divs, mk, items, direct:n(o.directSubtotal), total:n(o.total), directSum:r2(items.reduce((a,x)=>a+x.amount,0)), mkSum:r2(mk.reduce((a,x)=>a+x.amount,0)), project:String(o.project||""), notes:[]};
 }
 function psStart(st, p){
-  if(!S.canWrite) return;
+  if(!canDo("reqs")) return;
   const fi=h("input",{type:"file",accept:".pdf,.xlsx,.xlsm,.xls,.csv,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel",style:"display:none"});
   document.body.append(fi);
   fi.addEventListener("change",async()=>{ const f=fi.files[0]; fi.remove(); if(!f) return;
@@ -6111,7 +6667,7 @@ function coScanFromClaude(o){ o=o&&typeof o==="object"? o : {}; const n=v=>coSca
     fees:(Array.isArray(o.fees)? o.fees : []).map(f=>({label:String(f.name||"Fee")+(n(f.percent)!=null? " ("+n(f.percent)+"%)" : ""), amount:n(f.amount)})).filter(f=>f.amount!=null),
     subtotal:n(o.subtotal), total:n(o.total), notes:[] }; }
 async function coScanStart(p){
-  if(!S.canWrite) return;
+  if(!canDo("cos")) return;
   const fi=h("input",{type:"file",accept:".xlsx,.xlsm,.xls,.csv,.pdf,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel",style:"display:none"});
   document.body.append(fi);
   fi.addEventListener("change",async()=>{ const f=fi.files[0]; fi.remove(); if(!f) return;
@@ -6547,7 +7103,7 @@ function paReqData(x, lines, c, p){
 
 /* ask a sub for a pay application */
 function paRequestDialog(p, subId0){
-  if(!S.canWrite) return;
+  if(!canDo("subPay")) return;
   const subsHere=()=>{ const M=spModel(p); const ids=new Set(); for(const g of M.groups.values()) if(g.sub) ids.add(g.sub.id); for(const x of paFor(p.id)) ids.add(x.subId); return ids; };
   const here=subsHere();
   const list=[...S.subs].sort((a,b)=>(here.has(b.id)-here.has(a.id)) || String(a.name).localeCompare(String(b.name)));
@@ -6616,7 +7172,7 @@ function paLinkDialog(x){
 /* the pay application page: waiting, fill in, review & approve, approved */
 function renderPayApp(main, id){
   const x=paById(id); if(!x){ main.append(gatePanel("Pay application not found","It may have been deleted.")); return; }
-  const p=proj(x.projectId), sub=subById(x.subId), can=S.canWrite;
+  const p=proj(x.projectId), sub=subById(x.subId), can=canDo("subPay");
   const back=()=>{ S.paFill=null; S.paRev=null; if(p){ S.ptab=S.ptab||{}; S.ptab[p.id]="subs"; setTab(p.id); } else setTab("subpay"); };
   const link=paLink(x), live=x.status==="open"||x.status==="returned";
   const pdf=(x.files||[]).find(f=>f.kind==="Sub pay application");
@@ -6757,7 +7313,7 @@ function paRow(x, opts){ opts=opts||{}; const p=proj(x.projectId); const t=x.sta
 const paTable=(rows, first)=>h("div",{class:"tscroll"},h("table",{class:"sptable"},h("thead",null,h("tr",null,h("th",{text:first}),h("th",{text:"Status"}),h("th",{class:"num",text:"Payment due"}),h("th",{class:"num",text:"Completed to date"}),h("th",{text:"Files"}))),h("tbody",null,...rows)));
 function paProjectPanel(p){
   const list=S.payApps.filter(x=>x.projectId===p.id && x.status!=="void").sort((a,b)=>String(b.createdAt||"").localeCompare(String(a.createdAt||"")));
-  const can=S.canWrite;
+  const can=canDo("subPay");
   const shown=S.paAll&&S.paAll[p.id]? list : list.filter((x,i)=>x.status!=="approved" || i<6);
   return h("section",{class:"panel",id:"paPanel"},
     h("div",{class:"ph"},h("div",null,h("h2",{text:"Pay applications from subs"}),h("span",{class:"sub",text:"Send a sub a link; they fill in their % complete and you get a G702/G703"})),
@@ -6795,7 +7351,7 @@ function paReqPanel(st, p){
     h("div",null,h("b",{text:"Sub pay applications: "}),h("span",{text:"use what each sub billed for “This period” on their lines."})),
     h("div",{class:"palist"}, ...list.map(g=>{ const done=g.apps.every(x=>st.paApplied[x.id] || x.appliedReq===st.id);
       return h("div",{class:"paitem"}, h("span",null,h("b",{text:paSubName(g.last)}),h("span",{class:"small",text:" "+g.label+" · billed "+spM(g.work)+" · "+pctStr(g.pct)+"% complete"})),
-        done? h("span",{class:"pill st-approved",text:"Applied"}) : (S.canWrite && !st.locked? h("button",{class:"btn chipbtn",type:"button",text:"Apply",onclick:()=>paApplyDialog(st,p,g)}) : null)); })));
+        done? h("span",{class:"pill st-approved",text:"Applied"}) : (canDo("reqs") && !st.locked? h("button",{class:"btn chipbtn",type:"button",text:"Apply",onclick:()=>paApplyDialog(st,p,g)}) : null)); })));
 }
 function paApplyDialog(st, p, G){
   const d=st.d, x=G.last, M=spModel(p), g=[...M.groups.values()].find(g=>g.sub && g.sub.id===x.subId);
@@ -6831,7 +7387,7 @@ function paApplyDialog(st, p, G){
 
 /* ---------- Sub payments tab (all projects) ---------- */
 function renderSubPay(main){
-  const can=S.canWrite, f=S.spF||(S.spF={view:"upcoming", pid:"all"});
+  const can=canDo("subPay"), f=S.spF||(S.spF={view:"upcoming", pid:"all"});
   const all=S.subPays.filter(x=>x.status!=="void" && proj(x.projectId) && (f.pid==="all" || x.projectId===f.pid));
   const models=new Map(); const MM=pid=>{ if(!models.has(pid)) models.set(pid, spModel(proj(pid))); return models.get(pid); };
   const sch=all.filter(x=>x.status!=="paid").map(x=>({x, s:spPayState(x, MM(x.projectId))}));
@@ -6894,7 +7450,7 @@ function renderSubPay(main){
     h("div",{class:"tscroll"},h("table",null,h("thead",null,h("tr",null,h("th",{text:"Name"}),h("th",{class:"num",text:"Projects"}),h("th",{class:"num",text:"Paid"}),h("th",{class:"num",text:"Available to pay"}),h("th",{text:"Lien waivers"}))),db2))));
 }
 function spSubDialog(id){
-  const s=id? subById(id) : null, can=S.canWrite;
+  const s=id? subById(id) : null, can=canDo("lists");
   const F=[["name","Company name",true],["trade","Trade",false],["contact","Contact person",false],["phone","Phone",false],["email","Email",false]];
   const ins={}; for(const [k,l] of F){ ins[k]=h("input",{id:"sd-"+k,value:s&&s[k]||"",disabled:!can,type:k==="email"?"email":"text"}); }
   const nt=h("textarea",{id:"sd-notes",rows:"2",disabled:!can}); nt.value=s&&s.notes||"";
@@ -6909,7 +7465,7 @@ function spSubDialog(id){
 }
 function renderSubProfile(main, id){
   const s=subById(id); if(!s){ main.append(gatePanel("Subcontractor not found","It may have been deleted.",[h("button",{class:"btn",type:"button",text:"Sub payments",onclick:()=>setTab("subpay")})])); return; }
-  const can=S.canWrite, rows=[]; let T={amtReq:0,contract:0,received:0,paid:0,avail:0,ahead:0,sched:0};
+  const can=canDo("lists"), rows=[]; let T={amtReq:0,contract:0,received:0,paid:0,avail:0,ahead:0,sched:0};
   for(const p of S.projects){ const M=spModel(p); const g=[...M.groups.values()].find(g=>g.sub && g.sub.id===s.id); const ps=S.subPays.filter(x=>x.projectId===p.id && x.subId===s.id && x.status!=="void");
     if(!g && !ps.length) continue; rows.push({p, g, ps, M}); if(g){ for(const k of Object.keys(T)) T[k]=r2(T[k]+(g[k]||0)); if(g.contract!=null) T.hasC=true; } }
   const pays=S.subPays.filter(x=>x.subId===s.id && x.status!=="void").sort((a,b)=>String(spPayDate(b)).localeCompare(String(spPayDate(a))));
@@ -6991,7 +7547,7 @@ function openProject(id){
   gsel.value = p&&groupById(p.groupId)? p.groupId : "";
   S.pColor = p? (p.color||null) : null;
   $("pColor").replaceChildren(swatches(S.pColor, c=>{ S.pColor=c; }));
-  const del=$("pDelete"); del.hidden=!p;
+  const del=$("pDelete"); del.hidden=!p || !S.isAdmin;
   if(p) armDelete(del,"Delete project",async()=>{
     try{ const rs=reqsFor(p.id); for(const r of rs) await db.doc("reqs/"+r.id).delete(); await db.doc("projects/"+p.id).delete(); $("projectDlg").close(); setTab("overview"); }
     catch(e){ $("pErr").textContent="Couldn’t delete: "+(e&&e.message||"try again"); }
@@ -7314,6 +7870,7 @@ async function scanFile(file){
       const pdf=await lib.getDocument({data:new Uint8Array(await file.arrayBuffer()), isEvalSupported:false, disableFontFace:true}).promise;
       myR.scanPdf=pdf;
       const out=await AIA.pdfToLines(pdf,3); lines=out.lines; textLen=out.textLen;
+      try{ const X=await loadXlsx(); const book=await pdfReqBook(X, pdf); if(book.found){ const pr=parseReqWorkbook(X, book.wb, file.name); if(pr.lines.length>=3) myR.fullImport={file, n:pr.lines.length+pr.cos.length}; } }catch(e){}
     } else {
       const X=await loadXlsx();
       const wb=X.read(new Uint8Array(await file.arrayBuffer()),{type:"array", cellNF:true, cellText:true});
@@ -7333,7 +7890,7 @@ async function scanFile(file){
     return;
   }
   applyScan(AIA.readAIA(lines), "form");
-  if(myR.fullImport && S.canWrite){
+  if(myR.fullImport && canDo("reqs")){
     const fi=myR.fullImport, pid=myR.pid;
     $("scanRes").prepend(h("div",{class:"scanup"},
       h("div",null,h("b",{text:"This file has all "+fi.n+" line items."}),h("span",{text:" Import it with line items instead, so it opens in the requisition builder and the next requisition starts from it."})),
@@ -7383,7 +7940,7 @@ function applyScan(F, source){
   const fc = F.sumToDate!=null? F.sumToDate : (F.original!=null? r2(F.original+(F.changeOrders||0)) : null);
   if(fc!=null && Math.abs(fc-pc)>1){
     const row=h("div",{class:"rowh"},h("span",{class:"warnline",text:"Contract sum on the form is "+money(fc)+"; this project has "+money(pc)+"."}));
-    if(S.canWrite) row.append(h("button",{class:"btn",type:"button",text:"Update project to match",onclick:async e=>{
+    if(canDo("reqs")||canDo("invoices")) row.append(h("button",{class:"btn",type:"button",text:"Update project to match",onclick:async e=>{
       const b=e.currentTarget; b.disabled=true;
       const upd = F.original!=null? {contract:r2(F.original), changeOrders:r2(fc-F.original)} : {changeOrders:r2(fc-num(p.contract))};
       try{ await db.doc("projects/"+p.id).update({...upd, updatedAt:new Date().toISOString(), updatedBy:S.myId}); b.textContent="Project updated"; }
@@ -7473,7 +8030,8 @@ function openReq(pid,id){
   R={pid, id: id || (db? db.collection("reqs").doc().id : null), isNew:!r, files: r&&Array.isArray(r.files)? r.files.map(f=>({...f})) : [], removed:[], prev:r};
   $("reqForm").reset(); $("rErr").textContent=""; delete $("rExpected").dataset.touched;
   $("scanRes").hidden=true; $("scanRes").replaceChildren(); clearScanMarks();
-  $("scanZone").hidden=!S.canWrite;
+  const canW= r? canDo(reqArea(r)) : (canDo("reqs")||canDo("invoices"));
+  $("scanZone").hidden=!canW;
   if(r){ $("rAmount").dataset.touched="1"; } else { delete $("rAmount").dataset.touched; }
   $("rAmountHint").textContent="";
   $("rdTitle").textContent = r? "Requisition #"+(r.appNo||"?") : "New requisition";
@@ -7484,17 +8042,18 @@ function openReq(pid,id){
   $("rAmount").value = r&&r.amount!=null? r.amount : ""; $("rRet").value = r&&r.retainagePct!=null&&r.retainagePct!==""? r.retainagePct : (num(p.retainagePct)||0);
   $("rStatus").value = stNorm(r?.status); $("rExpected").value=r?.expected||""; if(r?.expected) $("rExpected").dataset.touched="1";
   $("rPaid").value = r&&r.paid? r.paid : ""; $("rPaidDate").value=r?.paidDate||""; $("rNote").value=r?.note||"";
-  const canW=!!S.canWrite; $("reqForm").querySelectorAll("input,select,textarea").forEach(el=>{ if(el.type!=="file") el.disabled=!canW; }); $("rSave").hidden=!canW;
+  $("reqForm").querySelectorAll("input,select,textarea").forEach(el=>{ if(el.type!=="file") el.disabled=!canW; }); $("rSave").hidden=!canW;
   $("rDrop").hidden=!S.canUpload; $("rNoUpload").hidden=S.canUpload;
   renderFiles(); readout(); renderHistory(r);
-  $("rUpgrade").hidden=!(r && !r.built && S.canWrite && r.type!=="release");
-  if(S.canWrite){ loadPdfJs().catch(()=>{}); loadXlsx().catch(()=>{}); }
+  $("rUpgrade").hidden=!(r && !r.built && canDo("reqs") && r.type!=="release");
+  if(canW){ loadPdfJs().catch(()=>{}); loadXlsx().catch(()=>{}); }
   const del=$("rDelete"); del.hidden=!r||!canW;
   if(r) armDelete(del,"Delete",async()=>{ try{ await db.doc("reqs/"+r.id).delete(); await rqResyncProject(r.projectId, r.id, r.appNo); $("reqDlg").close(); }catch(e){ $("rErr").textContent="Couldn’t delete. Try again."; } });
   $("reqDlg").showModal();
 }
 $("reqForm").addEventListener("submit",async e=>{
   e.preventDefault(); const err=$("rErr"); err.textContent=""; if(!R||!db) return;
+  if(!canDo(reqArea({type:$("rType").value})) || (R.prev && !canDo(reqArea(R.prev)))){ err.textContent=$("rType").value==="invoice"? "You can’t save invoices. Ask your admin for access." : "You can’t save requisitions. Ask your admin for access."; return; }
   const appNo=Math.round(num($("rApp").value));
   if(!appNo){ err.textContent="Enter the application number."; $("rApp").focus(); return; }
   if(reqsFor(R.pid).some(x=>x.id!==R.id && num(x.appNo)===appNo)){ err.textContent="Application #"+appNo+" already exists on this project."; $("rApp").focus(); return; }
@@ -7578,6 +8137,7 @@ function startData(){
   db.collection("subs").onSnapshot(snap=>{ S.subs=snap.docs.map(d=>({id:d.id,...d.data()})); if(!(S.rq && S.rq.dirty) && !(S.cob && S.cob.dirty) && !S.spEdit) render(); else renderSide(); }, onErr);
   db.collection("subPayments").onSnapshot(snap=>{ S.subPays=snap.docs.map(d=>({id:d.id,...d.data()})); S.loadedSP=true; if(!(S.rq && S.rq.dirty) && !(S.cob && S.cob.dirty) && !S.spEdit) render(); else renderSide(); }, onErr);
   db.collection("subPayApps").onSnapshot(snap=>{ S.payApps=snap.docs.map(d=>({id:d.id,...d.data()})); S.loadedPA=true; if(!(S.rq && S.rq.dirty) && !(S.cob && S.cob.dirty) && !S.spEdit) render(); else renderSide(); }, onErr);
+  db.collection("coApprovals").onSnapshot(snap=>{ S.coApps=snap.docs.map(d=>({id:d.id,...d.data()})); if(!(S.rq && S.rq.dirty) && !(S.cob && S.cob.dirty) && !S.spEdit) render(); else renderSide(); }, onErr);
   db.collection("subSov").onSnapshot(snap=>{ S.subSovs=snap.docs.map(d=>({id:d.id,...d.data()})); }, onErr);
   db.collection("clients").onSnapshot(snap=>{ S.clients=snap.docs.map(d=>({id:d.id,...d.data()})); if(!(S.rq && S.rq.dirty)) render(); else renderSide(); }, onErr);
   db.doc("settings/company").onSnapshot(d=>{ S.company=d.exists? d.data() : null; applyCompanyBrand(); render(); }, onErr);
@@ -7637,6 +8197,9 @@ function applyCompanyBrand(){
 function renderTeam(main){
   const PF=window.__appPlatform; const co=company();
   main.append(h("div",{class:"phead"},h("div",{class:"ptitle"},h("h1",{text:"Team & access"}),h("span",{class:"meta",text:"You’re the admin of "+(co.name||"your company")+(/\.$/.test(co.name||"")? "" : ".")+" Invite people with a link and choose what each person can do."}))));
+  const ttab=S.teamTab==="access"? "access" : "people";
+  main.append(h("div",{class:"ptabs",role:"tablist","aria-label":"Team pages"}, ...[["people","People & invites"],["access","Project access"]].map(([v,l])=>h("button",{type:"button",role:"tab",class:"ptab",id:"teamtab-"+v,"aria-selected":String(ttab===v),text:l,onclick:()=>{ S.teamTab=v; render(); setTimeout(()=>{ const e=$("teamtab-"+v); if(e) e.focus(); },0); }}))));
+  if(ttab==="access"){ renderAccessTab(main); return; }
   const step=(n,t,d)=>h("div",null,h("b",null,h("span",{text:n}),t),h("p",{text:d}));
   main.append(h("div",{class:"howto"},
     step("1","Create a link","Choose Editor or Viewer. You can lock the link to the person’s email so nobody else can use it."),
@@ -7646,15 +8209,22 @@ function renderTeam(main){
   const role=h("select",{id:"invRole"},h("option",{value:"editor",text:"Editor · creates and updates billing"}),h("option",{value:"viewer",text:"Viewer · sees billing, changes nothing"}));
   const em=h("input",{id:"invEmail",type:"email",placeholder:"name@company.com (optional)",autocomplete:"off"});
   const nt=h("input",{id:"invNote",placeholder:"e.g. Project manager, 247 West (optional)"});
+  const invM=S.invAccess||(S.invAccess=accModel(null));
+  const invSum=h("span",{class:"accsumline",id:"invAccSum"});
+  const invSync=()=>{ invSum.textContent=accProjectsText(invM)+" · "+accEditText(role.value, invM); };
+  const invEd=accessEditor(invM, ()=>role.value, invSync, "inv");
+  const invDet=h("details",{class:"accdet",id:"invAccess"},h("summary",null,h("b",{text:"Projects & permissions"}),invSum),invEd);
+  role.addEventListener("change",()=>{ invEd.redraw(); invSync(); }); invSync();
   const out=h("div",{class:"invout",hidden:true});
   const err=h("p",{class:"err",role:"alert"});
   const go=h("button",{class:"btn primary",type:"button",text:"Create invite link"});
   go.addEventListener("click",async()=>{ err.textContent=""; const e=em.value.trim(); if(e && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)){ err.textContent="That email doesn’t look right."; em.focus(); return; }
-    go.disabled=true; try{ const tok=await PF.invites.create({role:role.value, email:e, note:nt.value.trim()}); const link=PF.invites.link(tok);
+    if(Array.isArray(invM.projects) && !invM.projects.length && !(role.value==="editor" && invM.create)){ err.textContent="Choose at least one project they’ll see, or All projects."; invDet.open=true; return; }
+    go.disabled=true; try{ const tok=await PF.invites.create({role:role.value, email:e, note:nt.value.trim(), access:accStore(invM)}); const link=PF.invites.link(tok);
       const li=h("input",{readonly:true,value:link,"aria-label":"Invite link",onfocus:ev=>ev.target.select()});
       const cp=h("button",{class:"btn",type:"button",text:"Copy link",onclick:async ev=>{ try{ await navigator.clipboard.writeText(link); ev.currentTarget.textContent="Copied ✓"; }catch(x){ li.select(); } }});
       const subj=encodeURIComponent("Join "+(co.name||"our company")+" on Client Billing"), body=encodeURIComponent("Hi,\n\nHere’s your link to join "+(co.name||"our company")+" on Client Billing as "+(role.value==="viewer"?"a viewer":"an editor")+":\n\n"+link+"\n\nCreate your account from the link. It works once and expires in 14 days.\n");
-      out.replaceChildren(h("b",{text:"Link for "+(e||"one person")+" · "+(role.value==="viewer"?"Viewer":"Editor")}), h("div",{class:"invrow"},li,cp, h("a",{class:"btn",href:"mailto:"+encodeURIComponent(e)+"?subject="+subj+"&body="+body,text:"Email it"})));
+      out.replaceChildren(h("b",{text:"Link for "+(e||"one person")+" · "+(role.value==="viewer"?"Viewer":"Editor")+" · "+invSum.textContent}), h("div",{class:"invrow"},li,cp, h("a",{class:"btn",href:"mailto:"+encodeURIComponent(e)+"?subject="+subj+"&body="+body,text:"Email it"})));
       out.hidden=false; em.value=""; nt.value=""; loadInv(); }
     catch(x){ err.textContent="Couldn’t create the link. Check your connection and try again."; }
     finally{ go.disabled=false; } });
@@ -7662,7 +8232,7 @@ function renderTeam(main){
     h("div",{class:"pb"},h("div",{class:"fields"},
       h("div",{class:"f"},h("label",{for:"invRole",text:"Role"}),role),
       h("div",{class:"f"},h("label",{for:"invEmail",text:"Their email"}),em),
-      h("div",{class:"f full"},h("label",{for:"invNote",text:"Note for you"}),nt)), err, h("div",{class:"actions"},go), out)));
+      h("div",{class:"f full"},h("label",{for:"invNote",text:"Note for you"}),nt)), invDet, err, h("div",{class:"actions"},go), out)));
   // open links
   const itb=h("tbody",null,h("tr",null,h("td",{colspan:"5",class:"none",text:"Loading…"})));
   const loadInv=async()=>{ let list=[]; try{ list=await PF.invites.list(); }catch(x){ itb.replaceChildren(h("tr",null,h("td",{colspan:"5",class:"none",text:"Couldn’t load invite links."}))); return; }
@@ -7683,18 +8253,20 @@ function renderTeam(main){
   const mem=[...S.members].sort((a,b)=>(a.id===S.myId? -1 : b.id===S.myId? 1 : 0) || String(a.name||a.email||"").localeCompare(String(b.name||b.email||"")));
   const tb=h("tbody");
   for(const m of mem){
-    if(m.id===S.myId){ tb.append(h("tr",null,h("td",null,personEl(m.id, m.email)),h("td",null,h("span",{class:"pill st-approved",text:"Admin · you"})),h("td",{class:"none",text:"Since "+dShort(String(m.at||"").slice(0,10))}),h("td"))); continue; }
+    const accTd=x=> x.role==="admin"? h("td",{class:"none",text:"Everything"}) : h("td",null,h("span",{class:"accsumcell",text:accSummary(x)}),h("button",{class:"linkbtn small",type:"button",text:"Change",onclick:()=>{ S.teamTab="access"; S.accView="person"; S.accSel=x.id; render(); }}));
+    if(m.id===S.myId){ tb.append(h("tr",null,h("td",null,personEl(m.id, m.email)),h("td",null,h("span",{class:"pill st-approved",text:"Admin · you"})),accTd(m),h("td",{class:"none",text:"Since "+dShort(String(m.at||"").slice(0,10))}),h("td"))); continue; }
     const sel=h("select",{"aria-label":"Role for "+(m.name||m.email||"member"),style:"width:auto;padding:7px 8px"}, ...[["admin","Admin"],["editor","Editor"],["viewer","Viewer"]].map(([v,l])=>h("option",{value:v,text:l,selected:m.role===v})));
     sel.addEventListener("change",async()=>{ sel.disabled=true; try{ await db.doc("members/"+m.id).update({role:sel.value}); toast("Role changed to "+ROLE_NAME[sel.value]); }catch(e){ sel.value=m.role; toast("Couldn’t change the role."); } sel.disabled=false; });
     const rm=h("button",{class:"btn danger",type:"button"}); armDelete(rm,"Remove",async()=>{ rm.disabled=true; try{ await db.doc("members/"+m.id).delete(); toast("Removed from the company"); }catch(e){ rm.disabled=false; toast("Couldn’t remove."); } });
-    tb.append(h("tr",null,h("td",null,personEl(m.id, m.email)),h("td",null,sel),h("td",{class:"none",text:"Since "+dShort(String(m.at||"").slice(0,10))}),h("td",null,rm)));
+    tb.append(h("tr",null,h("td",null,personEl(m.id, m.email)),h("td",null,sel),accTd(m),h("td",{class:"none",text:"Since "+dShort(String(m.at||"").slice(0,10))}),h("td",null,rm)));
   }
   main.append(h("section",{class:"panel"},h("div",{class:"ph"},h("h2",{text:"People in "+(co.name||"your company")}),h("span",{class:"sub",text:mem.length+(mem.length===1?" person":" people")})),
-    h("div",{class:"tscroll"},h("table",null,h("thead",null,h("tr",null,h("th",{text:"Person"}),h("th",{text:"Role"}),h("th",{text:"Joined"}),h("th",{text:""}))),tb)),
+    h("div",{class:"tscroll"},h("table",null,h("thead",null,h("tr",null,h("th",{text:"Person"}),h("th",{text:"Role"}),h("th",{text:"Access"}),h("th",{text:"Joined"}),h("th",{text:""}))),tb)),
     h("div",{class:"roles"},
       h("div",null,h("b",{text:"Admin: "}),"everything, plus inviting people, roles and company info."),
-      h("div",null,h("b",{text:"Editor: "}),"adds projects, builds requisitions, invoices and change orders, records payments and attaches PDFs."),
-      h("div",null,h("b",{text:"Viewer: "}),"sees projects, billing history, statuses and PDFs, and can’t change anything."))));
+      h("div",null,h("b",{text:"Editor: "}),"works in the projects you give them and edits only what you switch on: requisitions, invoices, change orders, sub payments, project setup, clients & subs, cash flow."),
+      h("div",null,h("b",{text:"Viewer: "}),"sees the projects you give them, with billing history, statuses and PDFs, and can’t change anything."),
+      h("div",null,h("b",{text:"Project access: "}),"choose each person’s projects and permissions on the Project access tab. Summary, Subcontractors and Cash flow only include the projects they see."))));
   // files moved from the earlier version
   const leg=PF.legacy && PF.legacy();
   if(leg && Array.isArray(leg.files) && leg.files.length && !leg.filesDone){
@@ -7708,6 +8280,211 @@ function renderTeam(main){
   }
   fillPeople(main);
 }
+/* ---------- Team & access: which projects each person sees and what they can edit ---------- */
+const ACC_AREAS=[
+  ["reqs","Requisitions","AIA pay applications (G702/G703), imports and scans"],
+  ["invoices","Invoices","Invoices to clients"],
+  ["cos","Change orders","Create, price, send and track change orders"],
+  ["subPay","Sub payments","Payments to subs, lien waivers and sub pay app links"],
+  ["setup","Project setup","Project details, contract, retainage, groups and colors"],
+  ["lists","Clients & subcontractors","Add and edit the client and subcontractor lists"],
+  ["cashflow","Cash flow","Cash items, and forecast settings for people who see all projects"]];
+const ACC_PRESETS=[
+  ["Everything",["reqs","invoices","cos","subPay","setup","lists","cashflow"],true],
+  ["Project manager",["reqs","invoices","cos","subPay"],false],
+  ["Requisitions & invoices",["reqs","invoices"],false],
+  ["Change orders only",["cos"],false],
+  ["Sub payments only",["subPay"],false],
+  ["Nothing · view only",[],false]];
+const accKeys=()=>ACC_AREAS.map(a=>a[0]);
+// an editable copy of someone's access
+function accModel(access){
+  if(access==null) return { projects:"all", edit:Object.fromEntries(accKeys().map(k=>[k,true])), create:true };
+  return { projects: Array.isArray(access.projects)? access.projects.map(String) : "all",
+           edit: Object.fromEntries(accKeys().map(k=>[k, !!(access.edit && access.edit[k])])), create: !!access.create };
+}
+const accIsFull=m=>m.projects==="all" && m.create && accKeys().every(k=>m.edit[k]);
+// what gets stored: nothing for full access (works exactly as before), otherwise the choices
+const accStore=m=> accIsFull(m)? null : { projects: m.projects==="all"? "all" : [...new Set(m.projects)], edit:{...m.edit}, create:!!m.create };
+const accSame=(a,b)=>JSON.stringify(accStore(a))===JSON.stringify(accStore(b));
+function accProjectsText(m){
+  if(m.projects==="all") return "All projects";
+  const n=m.projects.filter(id=>proj(id)).length; return n? plural(n,"project") : "No projects yet";
+}
+function accEditText(role, m){
+  if(role==="viewer") return "View only";
+  const on=ACC_AREAS.filter(([k])=>m.edit[k]);
+  if(on.length===ACC_AREAS.length) return m.create? "Edits everything" : "Edits everything except new projects";
+  if(!on.length) return m.create? "Creates projects" : "View only";
+  const names=on.map(a=>a[1]);
+  return (names.length>3? names.slice(0,3).join(", ")+" +"+(names.length-3) : names.join(", "))+(m.create? " · creates projects" : "");
+}
+function accSummary(mem){
+  if(mem.role==="admin") return "Sees and edits everything";
+  const m=accModel(mem.access); return accProjectsText(m)+" · "+accEditText(mem.role, m);
+}
+const accSortedProjects=()=>[...S.projects].sort((a,b)=>(a.status==="complete")-(b.status==="complete") || String(a.name||"").localeCompare(String(b.name||"")));
+
+// the access picker: projects they see, what they can edit, whether they can create projects
+function accessEditor(m, getRole, onChange, idp){
+  idp=idp||"acc";
+  const box=h("div",{class:"acced"});
+  const changed=()=>{ onChange && onChange(); };
+  // projects
+  const pjSec=h("section",{class:"accsec"});
+  const drawProjects=()=>{
+    const choose=Array.isArray(m.projects);
+    const opt=(v,t,sub)=>{ const i=h("input",{type:"radio",name:idp+"-pmode",value:v,id:idp+"-pm-"+v}); i.checked= (v==="some")===choose;
+      i.addEventListener("change",()=>{ if(v==="all") m.projects="all"; else if(!Array.isArray(m.projects)) m.projects=[]; drawProjects(); changed(); });
+      return h("label",{class:"accopt",for:idp+"-pm-"+v},i,h("span",null,h("b",{text:t}),h("small",{text:sub}))); };
+    const kids=[h("h3",{text:"Projects they see"}),
+      h("div",{class:"accopts",role:"radiogroup","aria-label":"Projects they see"},
+        opt("all","All projects","Including projects added later"),
+        opt("some","Only the projects I choose","They see nothing else, including on Summary, Subcontractors and Cash flow"))];
+    if(choose){
+      const all=accSortedProjects();
+      const q=h("input",{type:"search",id:idp+"-q",placeholder:"Search projects, numbers or clients","aria-label":"Search projects",autocomplete:"off"});
+      const count=h("span",{class:"acccount",id:idp+"-count","aria-live":"polite"});
+      const listEl=h("div",{class:"acclist",id:idp+"-list"});
+      const shown=()=>{ const t=q.value.trim().toLowerCase(); return all.filter(p=>!t || [p.name,p.number,p.client].some(x=>String(x||"").toLowerCase().includes(t))); };
+      const sync=()=>{ const sel=new Set(m.projects);
+        count.textContent=sel.size+" of "+plural(all.length,"project")+" selected";
+        listEl.querySelectorAll("input[data-g]").forEach(cb=>{ const ids=cb.dataset.g.split(",").filter(Boolean); const n=ids.filter(id=>sel.has(id)).length; cb.checked= n>0 && n===ids.length; cb.indeterminate= n>0 && n<ids.length; }); };
+      const setSel=(ids,on)=>{ const sel=new Set(m.projects); for(const id of ids){ if(on) sel.add(id); else sel.delete(id); } m.projects=[...sel]; };
+      const drawList=()=>{
+        const ps=shown(), sel=new Set(m.projects), byG=new Map();
+        for(const p of ps){ const g=groupById(p.groupId)? p.groupId : ""; if(!byG.has(g)) byG.set(g,[]); byG.get(g).push(p); }
+        const order=[...sortedGroups().map(g=>g.id).filter(id=>byG.has(id)), ...(byG.has("")? [""] : [])];
+        const blocks=order.map(gid=>{ const g=groupById(gid), ids=byG.get(gid).map(p=>p.id);
+          const gcb=h("input",{type:"checkbox","data-g":ids.join(","),id:idp+"-g-"+(gid||"none"),"aria-label":"All projects in "+(g? g.name||"group" : "No group")});
+          gcb.addEventListener("change",()=>{ setSel(ids, gcb.checked); listEl.querySelectorAll("input[data-p]").forEach(cb=>{ if(ids.includes(cb.dataset.p)) cb.checked=gcb.checked; }); sync(); changed(); });
+          return h("div",{class:"accgrp"},
+            h("label",{class:"accgh",for:idp+"-g-"+(gid||"none")},gcb, g&&g.color? h("span",{class:"accdot",style:"--c:"+g.color,"aria-hidden":"true"}) : null, h("b",{text:g? g.name||"Untitled group" : "No group"}), h("small",{text:plural(ids.length,"project")})),
+            ...byG.get(gid).map(p=>{ const cb=h("input",{type:"checkbox","data-p":p.id,id:idp+"-p-"+p.id}); cb.checked=sel.has(p.id);
+              cb.addEventListener("change",()=>{ setSel([p.id], cb.checked); sync(); changed(); });
+              return h("label",{class:"accprow"+(p.status==="complete"?" done":""),for:idp+"-p-"+p.id},cb,
+                h("span",{class:"accpn"},h("span",{text:p.name||"Untitled project"}), h("small",{text:[p.number, p.client, p.status==="complete"? "completed" : ""].filter(Boolean).join(" · ")}))); })); });
+        listEl.replaceChildren(...(blocks.length? blocks : [h("p",{class:"hint",style:"margin:8px 4px",text: all.length? "No project matches “"+q.value.trim()+"”." : "There are no projects yet."})]));
+        sync(); };
+      q.addEventListener("input",drawList);
+      const bulk=(t,on)=>h("button",{class:"btn chipbtn",type:"button",text:t,onclick:()=>{ setSel(shown().map(p=>p.id), on); drawList(); changed(); }});
+      kids.push(h("div",{class:"acctools"},q,h("div",{class:"accbulk"},bulk("Select shown",true),bulk("Clear shown",false)),count), listEl);
+      drawList();
+    }
+    pjSec.replaceChildren(...kids);
+  };
+  // edit rights
+  const edSec=h("section",{class:"accsec"});
+  const drawEdit=()=>{
+    if(getRole()==="viewer"){ edSec.replaceChildren(h("h3",{text:"What they can edit"}),h("p",{class:"accnote",text:"Viewers see their projects, billing history, statuses and PDFs, and can’t change anything. Choose Editor above to give edit rights."})); return; }
+    const sw=(k,t,d,checked,on)=>{ const i=h("input",{type:"checkbox",role:"switch",id:idp+"-e-"+k}); i.checked=checked;
+      i.addEventListener("change",()=>{ on(i.checked); presets.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed","false")); changed(); });
+      return h("label",{class:"accsw",for:idp+"-e-"+k},i,h("span",{class:"swtrack","aria-hidden":"true"}),h("span",null,h("b",{text:t}),h("small",{text:d}))); };
+    const presets=h("div",{class:"accpresets",role:"group","aria-label":"Quick choices"},
+      ...ACC_PRESETS.map(([t,ks,cr])=>{ const same= accKeys().every(k=>!!m.edit[k]===ks.includes(k)) && !!m.create===cr;
+        return h("button",{type:"button",class:"accpre","aria-pressed":String(same),text:t,onclick:()=>{ for(const k of accKeys()) m.edit[k]=ks.includes(k); m.create=cr; drawEdit(); changed(); }}); }));
+    edSec.replaceChildren(h("h3",{text:"What they can edit"}),
+      h("p",{class:"accnote",text:"In their projects they can open and download everything, and change only what’s switched on here."}),
+      presets,
+      h("div",{class:"accsws"}, ...ACC_AREAS.map(([k,t,d])=>sw(k,t,d,!!m.edit[k],v=>{ m.edit[k]=v; }))),
+      h("div",{class:"accsws one"}, sw("create","Can create projects","New projects they add are shared with them automatically. To change a project’s details later they also need Project setup.",!!m.create,v=>{ m.create=v; })));
+  };
+  box.append(pjSec, edSec);
+  box.redraw=()=>{ drawProjects(); drawEdit(); };
+  box.redraw();
+  return box;
+}
+
+function renderAccessTab(main){
+  const PF=window.__appPlatform;
+  const mem=[...S.members].sort((a,b)=>(a.role==="admin")-(b.role==="admin") || String(a.name||a.email||"").localeCompare(String(b.name||b.email||"")));
+  const others=mem.filter(m=>m.role!=="admin");
+  S.accDraft=S.accDraft||{};
+  const view=S.accView==="project"? "project" : "person";
+  const sw=h("div",{class:"seg",role:"group","aria-label":"Show access"},
+    ...[["person","By person"],["project","By project"]].map(([v,t])=>h("button",{type:"button","aria-pressed":String(view===v),text:t,onclick:()=>{ S.accView=v; render(); }})));
+  const head=h("div",{class:"ph"},h("h2",{text:"Project access"}),sw);
+  if(!others.length){
+    main.append(h("section",{class:"panel"},head,h("div",{class:"pb"},h("p",{class:"hint",style:"margin:0",text:"Only admins are in the company so far. Invite someone on the People & invites tab; you can choose their projects and permissions in the invite or here once they join."}))));
+    return;
+  }
+  if(view==="project"){ main.append(h("section",{class:"panel"},head,accByProject(others))); return; }
+
+  if(!others.some(x=>x.id===S.accSel)) S.accSel=others[0].id;
+  const cur=others.find(x=>x.id===S.accSel);
+  const draftOf=x=>S.accDraft[x.id] || null;
+  // left: people
+  const list=h("div",{class:"acclistp",role:"listbox","aria-label":"People"},
+    ...mem.map(x=>{ const d=draftOf(x), role=d? d.role : x.role, m=d? d.m : accModel(x.access), isAdmin=x.role==="admin";
+      return h("button",{type:"button",class:"accperson"+(x.id===S.accSel?" on":""),role:"option","aria-selected":String(x.id===S.accSel),disabled:isAdmin,id:"accp-"+x.id,
+        onclick:()=>{ S.accSel=x.id; render(); setTimeout(()=>{ const e=$("accp-"+x.id); if(e) e.focus(); },0); }},
+        h("span",{class:"accpname"},h("b",{text:x.name||x.email||"Someone"}),d? h("span",{class:"pill st-submitted",text:"Unsaved"}) : null),
+        h("small",{text:(ROLE_NAME[role]||role)+(x.id===S.myId? " · you" : "")}),
+        h("span",{class:"accpsum",text: isAdmin? "Sees and edits everything" : accProjectsText(m)+" · "+accEditText(role,m)})); }));
+  // right: the selected person
+  const base={ role:cur.role, m:accModel(cur.access) };
+  const d=S.accDraft[cur.id] || { role:base.role, m:JSON.parse(JSON.stringify(base.m)) };
+  const dirty=()=> d.role!==base.role || !accSame(d.m, base.m);
+  const status=h("span",{class:"accstatus","aria-live":"polite"});
+  const save=h("button",{class:"btn primary",type:"button",text:"Save changes",id:"accSave"});
+  const discard=h("button",{class:"btn",type:"button",text:"Discard",id:"accDiscard"});
+  const syncBar=()=>{ const on=dirty(); if(on) S.accDraft[cur.id]=d; else delete S.accDraft[cur.id];
+    save.disabled=!on; discard.disabled=!on; status.textContent= on? "Unsaved changes" : "Saved";
+    const row=$("accp-"+cur.id); if(row){ const sum=row.querySelector(".accpsum"); if(sum) sum.textContent=accProjectsText(d.m)+" · "+accEditText(d.role,d.m);
+      const nm=row.querySelector(".accpname"); const chip=nm&&nm.querySelector(".pill"); if(on && !chip) nm.append(h("span",{class:"pill st-submitted",text:"Unsaved"})); if(!on && chip) chip.remove(); } };
+  const roleSel=h("select",{id:"accRole","aria-label":"Role for "+(cur.name||cur.email||"this person")},h("option",{value:"editor",text:"Editor"}),h("option",{value:"viewer",text:"Viewer"}),h("option",{value:"admin",text:"Admin · everything"}));
+  roleSel.value=d.role;
+  const ed=accessEditor(d.m, ()=>d.role, syncBar, "acc");
+  roleSel.addEventListener("change",()=>{ d.role=roleSel.value; ed.hidden= d.role==="admin"; adminNote.hidden= d.role!=="admin"; ed.redraw(); syncBar(); });
+  const adminNote=h("p",{class:"notice",hidden:d.role!=="admin",text:"Admins see and edit everything, and manage the team and company info."});
+  ed.hidden= d.role==="admin";
+  const copy=h("select",{id:"accCopy","aria-label":"Copy access from another person"},h("option",{value:"",text:"Copy from…"}),
+    ...others.filter(x=>x.id!==cur.id).map(x=>h("option",{value:x.id,text:(x.name||x.email||"Someone")+" · "+accSummary(x)})));
+  copy.addEventListener("change",()=>{ const src=others.find(x=>x.id===copy.value); copy.value=""; if(!src) return;
+    const sd=S.accDraft[src.id]; d.m=JSON.parse(JSON.stringify(sd? sd.m : accModel(src.access))); d.role= (sd? sd.role : src.role)==="viewer"? "viewer" : "editor";
+    S.accDraft[cur.id]=d; render(); toast("Copied from "+(src.name||src.email||"them")+". Review and save."); });
+  save.addEventListener("click",async()=>{ if(d.role!=="admin" && Array.isArray(d.m.projects) && !d.m.projects.length && !(d.role==="editor" && d.m.create)){
+      status.textContent="Choose at least one project, or switch on Can create projects."; return; }
+    save.disabled=true; status.textContent="Saving…";
+    try{ await db.doc("members/"+cur.id).update(d.role==="admin"? {role:"admin", access:null} : {role:d.role, access:accStore(d.m)});
+      delete S.accDraft[cur.id]; toast("Access saved for "+(cur.name||cur.email||"them")); render(); }
+    catch(e){ save.disabled=false; status.textContent="Couldn’t save. Check your connection and try again."; } });
+  discard.addEventListener("click",()=>{ delete S.accDraft[cur.id]; render(); });
+  const right=h("div",{class:"accmain"},
+    h("div",{class:"acchead"},h("div",null,h("b",{class:"accwho",text:cur.name||cur.email||"Someone"}),cur.email&&cur.name? h("small",{text:cur.email}) : null),
+      h("div",{class:"accheadr"},h("label",{class:"acclab",for:"accRole",text:"Role"}),roleSel,copy)),
+    adminNote, ed,
+    h("div",{class:"accbar"},status,h("div",{class:"actions"},discard,save)));
+  main.append(h("section",{class:"panel"},head,h("div",{class:"accgrid"},list,right)));
+  syncBar();
+}
+
+// one project at a time: tick who sees it (saves right away)
+function accByProject(others){
+  const ps=accSortedProjects();
+  if(!ps.length) return h("div",{class:"pb"},h("p",{class:"hint",style:"margin:0",text:"There are no projects yet."}));
+  if(!ps.some(p=>p.id===S.accProj)) S.accProj=ps[0].id;
+  const sel=h("select",{id:"accProj","aria-label":"Project"}, ...ps.map(p=>h("option",{value:p.id,text:(p.name||"Untitled project")+(p.number? " · "+p.number : "")+(p.status==="complete"? " (completed)" : "")})));
+  sel.value=S.accProj; sel.addEventListener("change",()=>{ S.accProj=sel.value; render(); setTimeout(()=>{ const e=$("accProj"); if(e) e.focus(); },0); });
+  const pid=S.accProj;
+  const rows=others.map(x=>{ const m=accModel(x.access), all=m.projects==="all", on= all || m.projects.includes(pid);
+    const cb=h("input",{type:"checkbox",id:"accpp-"+x.id,disabled:all,"aria-label":(x.name||x.email||"Someone")+" sees this project"}); cb.checked=on;
+    cb.addEventListener("change",async()=>{ cb.disabled=true; const next=accModel(x.access); const set=new Set(Array.isArray(next.projects)? next.projects : []);
+      if(cb.checked) set.add(pid); else set.delete(pid); next.projects=[...set];
+      try{ await db.doc("members/"+x.id).update({access:accStore(next)}); const dr=S.accDraft[x.id]; if(dr && Array.isArray(dr.m.projects)){ const s2=new Set(dr.m.projects); if(cb.checked) s2.add(pid); else s2.delete(pid); dr.m.projects=[...s2]; }
+        toast((x.name||x.email||"They")+(cb.checked? " can now see " : " no longer sees ")+((proj(pid)||{}).name||"this project")); }
+      catch(e){ cb.checked=!cb.checked; toast("Couldn’t save. Try again."); }
+      cb.disabled=false; });
+    return h("tr",null,
+      h("td",null,h("label",{class:"accpp",for:"accpp-"+x.id},cb,h("span",null,h("b",{text:x.name||x.email||"Someone"}),h("small",{text:ROLE_NAME[x.role]||x.role})))),
+      h("td",{text: all? "All projects" : on? "Yes" : "No"}),
+      h("td",{class:"none",text:accEditText(x.role,m)}),
+      h("td",null,h("button",{class:"btn chipbtn",type:"button",text:"Edit access",onclick:()=>{ S.accView="person"; S.accSel=x.id; render(); }}))); });
+  return h("div",{class:"pb"},
+    h("div",{class:"accprojpick"},h("label",{class:"acclab",for:"accProj",text:"Project"}),sel,h("span",{class:"hint",text:"Tick who sees it. Changes save right away. People with All projects see every project; change that on By person."})),
+    h("div",{class:"tscroll"},h("table",null,h("thead",null,h("tr",null,h("th",{text:"Person"}),h("th",{text:"Sees it"}),h("th",{text:"Can edit"}),h("th"))),h("tbody",null,...rows))));
+}
+
 function companyPanel(){
   const can=S.isAdmin, co=company();
   const save=async patch=>{ const next=Object.assign({}, S.company||{}, patch); await db.doc("settings/company").set(next); };
